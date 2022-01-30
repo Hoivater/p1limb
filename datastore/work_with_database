@@ -1,0 +1,81 @@
+<h3 class="text-center">Общие данные</h3>
+<p>
+	При создании каждой страницы создается свой класс предназначенный для работы с ней и обработки ее данных. Систематизация, приведение к нужному в данный момент виду. По умолчанию создано уже два метода которые позволяют получить все поля таблицы и добавить поле в таблицу: searchField() и insertField()
+</p>
+<h3 class="text-center">Получение данных, класс SearchInq</h3>
+
+<p>При создании класса в конструктор необходимо передать имя таблицы.</p>
+<table class="table table-bordered">
+	<tr>
+		<td>Метод</td>
+		<td>Описание</td>
+		<td>Входные данные</td>
+		<td>Возврат</td>
+	</tr>
+	<tr>
+		<td>select()</td>
+		<td><p>Метод позволяет собрать конструкцию <mark>SELECT*FROM `имя_таблицы`</mark>, сохраняет ее в переменную, для продолжения запроса. Вызывается всегда первым.</p></td>
+		<td><p>-</p></td>
+		<td><p>-</p></td>
+	</tr>
+	<tr>
+		<td>where($key, $value, $operator)</td>
+		<td><p>Метод добавляет к текущему запросу положение:  <mark>WHERE  key $operator '$value'</mark></p></td>
+		<td>key - столбец, который должен соответствовать искомой строке value, согласно примененному оператору. Оператор может быть: =, <, >, !=, LIKE</td>
+		<td>-</td>
+	</tr>
+	<tr>
+		<td>orderDesc($field = "")</td>
+		<td></td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>orderAsc($field = "")</td>
+		<td></td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>limit($start, $length)</td>
+		<td></td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>res()</td>
+		<td>Финиш запроса любой конфигурации, возвращает массив полученный из бд</td>
+		<td></td>
+		<td></td>
+	</tr>
+</table>
+<p>Правильная очередность построения запроса</p>
+<div class = "code_ex">
+<pre>
+$si = new Base\SearchInq($this -> name);
+$si -> selectQ();
+$si -> orderDescQ();
+$result = $si -> resQ();
+$result = $si -> paginateQ(3);
+</pre>
+</div>
+<h3 class="text-center">Создание данных, класс RedactionInq</h3>
+<table class="table table-bordered">
+	<tr>
+		<td>Метод</td>
+		<td>Описание</td>
+		<td>Входные данные</td>
+		<td>Возврат</td>
+	</tr>
+</table>
+
+<h3 class="text-center">Работа с таблицами, класс TableInq</h3>
+
+<table class="table table-bordered">
+	<tr>
+		<td>Метод</td>
+		<td>Описание</td>
+		<td>Входные данные</td>
+		<td>Возврат</td>
+	</tr>
+</table>

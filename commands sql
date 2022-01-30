@@ -1,0 +1,16 @@
+CREATE TABLE `test12`.`table1` () ENGINE = MyISAM;
+создать таблицу table1 в бд test12, как MyISAM
+
+CREATE TABLE `test12`.`table1` ( `id` INT UNSIGNED NOT NULL , UNIQUE (`id`)) ENGINE = MyISAM;
+создание id, вместе с созданием таблицы
+
+CREATE TABLE `test12`.`table1` ( `id` INT UNSIGNED NOT NULL , `name` VARCHAR CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL , UNIQUE (`id`)) ENGINE = MyISAM;
+создание id, name вместе с созданием таблицы
+
+
+
+CREATE TABLE `test12`.`table1` ( `id` INT UNSIGNED NOT NULL , `name` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL , `date_creation` INT(11) NOT NULL , UNIQUE (`id`)) ENGINE = MyISAM;
+создание id, name, date_creation вместе с созданием таблицы
+
+ALTER TABLE `table1` ADD `author` TEXT NOT NULL ;
+//вставить в таблицу table1 новую графу

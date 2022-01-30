@@ -1,0 +1,32 @@
+header, footer{
+	background:#0D6EFD;
+	color: white;
+}
+.logo{
+	width: 50px;
+	float: left;
+}
+a: hover{
+	color: green;
+}
+a{
+	color: white;
+	text-decoration: none;
+}
+.img_article{
+	width: 40%;
+	min-width: 250px;
+	margin: 0 auto;
+}
+p{
+	text-align: justify;
+}
+.card p{
+	font-size: 110%;
+}
+.commentary p{
+	font-size: 90%;
+}
+.commentary a{
+	color: green;
+}
