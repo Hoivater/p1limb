@@ -1,0 +1,1 @@
+<a href="%link%" class="list-group-item list-group-item-action">%name_link%</a>

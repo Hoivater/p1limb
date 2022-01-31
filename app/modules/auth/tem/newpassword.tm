@@ -5,7 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Jquery -->
-    <script src="/style/dtbs/js/jq_v_3_6_0.js"></script>
+    <script src="/style/limb/js/jq_v_3_6_0.js"></script>
 
     <!-- CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
@@ -13,17 +13,17 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 
     <!-- Fonts -->
-    <link rel="stylesheet" href="/style/dtbs/css/dtbs.css">
+    <link rel="stylesheet" href="/style/limb/css/dtbs.css">
 
     <link rel="shortcut icon" href="/favicon.svg" type="image/x-icon">
-	<title>DTBS Восстановление пароля</title>
+	<title>LIMB Восстановление пароля</title>
 
 </head>
 <body>
 		<div class="main container-fluid mt-3">
 			<div class="row">
 					<div class="table_auth">
-						<h3 class="text-center mb-3">Восстановление пароля DTBS</h3>
+						<h3 class="text-center mb-3">Восстановление пароля LIMB</h3>
 						<form name = "auth" action = "/modules/auth/Auth.php" method = "post">
 
 							<label for="email">Введите ваш email, указанный при регистрации:</label>

@@ -61,68 +61,19 @@ class Route
 
 		if(count($route_arr) >= 1)
 		{
-				if($route_arr[0] == "administrator" && $this -> auth == "admin")
+				if($route_arr[0] == "article")
 				{
 					if(isset($route_arr[1])){
-						if($route_arr[1] == "new_article"){
-							#страница на которой создается новая статья
-							$html = new LimbSite\ArticlePage();
-							$html -> AddArticleAdminPage();
-						}
-						elseif($route_arr[1] == "order")
-						{
-							if(isset($route_arr[2]))
-							{
-								#code
-							}
-							else
-							{
-								#code
-							}
-						}
-						elseif($route_arr[1] == "new_project")
-						{
-							#code
-						}
-						else
-						{
-							#code
-						}
-					}
-
-				}
-				elseif($route_arr[0] == "feedback")
-				{
-					#code				
-				}
-				elseif($route_arr[0] == "basket")
-				{
-					#code				
-				}
-				elseif($route_arr[0] == "articles")
-				{
-					if(isset($route_arr[1]))
-					{
-						#code
+						#вывод определенной статьи
 					}
 					else
 					{
-						#code
-					}			
-				}
+						#вывод главной страницы
 
-				elseif($route_arr[0] == "product")
-				{
-					if(isset($route_arr[1]))
-					{
-						#code
 					}
-					else
-					{
-						#code
-					}				
-				}
 
+				}
+				
 				#модуль регистрации
 				elseif($route_arr[0] == "registration")
 				{

@@ -3,7 +3,8 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+	<meta name="keywords" content="%keywords%">
+	<meta name="description" content="%description%">
     <!-- Jquery -->
     <script src="/style/limb/js/jq_v_3_6_0.js"></script>
 
@@ -20,55 +21,31 @@
     <script src="https://kit.fontawesome.com/de9f65bcf0.js" crossorigin="anonymous"></script>
 
     <link rel="shortcut icon" href="/favicon.svg" type="image/x-icon">
-	<title>LIMB</title>
+	<title>%title%</title>
 
 </head>
 <header class='container-fluid pt-3 pb-2'>
-<img src="/resourse/visible/logo.png" class='logo'>
-<h3><a href = '/'>БЛОГ LIMB</a></h3>
+<a href = '/'><img src="/resourse/visible/logo.png" class='logo'>
+<h3>БЛОГ LIMB</h3></a>
 </header>
 <body>
 <div  class='container'>
 	<div class="row">
-		<div class="col-8">
-
-
-
-			<div class="card mt-3">
-			  <div class="card-header">
-			    Как использовать лимб
-			  </div>
-			  <div class="card-body">
-			    <h5 class="card-title">Никто не знает</h5>
-			    <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing, elit. Soluta, ullam! Amet, vero iure magnam libero. Commodi error nobis optio voluptatibus asperiores quod voluptas repudiandae tempore et? Quisquam tempora explicabo sunt. Asperiores vero nostrum aperiam consequuntur, quibusdam maiores nemo dolorum veritatis nam minima neque voluptate provident laudantium ducimus enim voluptatum excepturi quis minus impedit doloribus voluptatibus repellat optio sed dignissimos accusamus?</p>
-			    <div class="text-center">
-			    	<img class='img_article 'src="/resourse/data/limb.jpg">
-			    </div>
-			    <p class="card-text"> Dolor, illum suscipit. Necessitatibus in eaque ipsam vitae maxime pariatur quisquam nemo reprehenderit obcaecati nostrum sapiente porro, ab dolorem explicabo amet, magnam tenetur id mollitia omnis! Similique ut at nesciunt explicabo natus dignissimos. </p>
-			    <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing, elit. Soluta, ullam! Amet, vero iure magnam libero. Commodi error nobis optio voluptatibus asperiores quod voluptas repudiandae tempore et? Quisquam tempora explicabo sunt. Asperiores vero nostrum aperiam consequuntur, quibusdam maiores nemo dolorum veritatis nam minima neque voluptate provident laudantium ducimus enim voluptatum excepturi quis minus impedit doloribus voluptatibus repellat optio sed dignissimos accusamus?</p>
-			    <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing, elit. Soluta, ullam! Amet, vero iure magnam libero. Commodi error nobis optio voluptatibus asperiores quod voluptas repudiandae tempore et? Quisquam tempora explicabo sunt. Asperiores vero nostrum aperiam consequuntur, quibusdam maiores nemo dolorum veritatis nam minima neque voluptate provident laudantium ducimus enim voluptatum excepturi quis minus impedit doloribus voluptatibus repellat optio sed dignissimos accusamus?</p>
-			    <div class="text-center">
-			    	<a href="#" class="btn btn-primary"><<</a> <a href="#" class="btn btn-primary">>></a>
-			    </div>
-		    	<p class="text-end">12:32 12.01.2022</p>
-			  </div>
-			  <div class="commentary">
-			  	<div class='one_commentary'>
-			  		<a href="#">
-			  		<p class="text_commenatary p-3">
-			  			Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat odit in suscipit reprehenderit provident ipsa perspiciatis fugiat rerum quasi atque repellat asperiores magni, laboriosam eos at itaque quibusdam amet!
-			  		</p>
-			  		</a>
-			  	</div>
-			  </div>
-			</div>
+		<div class="col-md-8 col-12">
+			%left_content%
 		</div>
-		<div class="col-4 position-sticky">
-			<h3 class=' mt-3'>Меню</h3>
+		<div class="col-md-4 mb-3">
+			<h3 class='mt-3 '>Меню</h3>
 			<div class="list-group mt-3">
-			  <a href="#" class="list-group-item list-group-item-action">Главная страница</a>
-			  <a href="#" class="list-group-item list-group-item-action">Про LIMB</a>
-			  <a href="#" class="list-group-item list-group-item-action">Войти/Регистрация</a>
+
+			  %menu%
+			  %startadmin%
+			  <a href="/" class="list-group-item list-group-item-action">Добавить пункт меню</a>
+			  %endadmin%
+			  %startnoauth%
+			  <a href="/registration" class="list-group-item list-group-item-action">Регистрация</a>
+			  <a href="/auth" class="list-group-item list-group-item-action">Войти</a>
+			%endnoauth%
 			</div>
 		</div>
 	</div>
@@ -78,6 +55,7 @@
 <footer class='container-fluid p-2 mb-0 pt-3'>
 <h5 class='text-end'>...тестовая версия для limb и про limb... 2022 уеарс</h5>
 </footer>
+
 <script>
 
 </script>

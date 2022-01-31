@@ -27,6 +27,23 @@ p{
 .commentary p{
 	font-size: 90%;
 }
-.commentary a{
-	color: green;
+.commentary{
+	color: blue;
+}
+.avatar{
+	width: 70px;
+	float: left;
+}
+.name_author{
+	/*padding: 5px;*/
+	color: black;
+}
+.clean{
+	clear: both;
+}
+.one_commentary{
+	margin-left: 10px;
+}
+.two_commentary{
+	margin-left: 40px;
 }

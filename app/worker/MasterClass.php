@@ -43,7 +43,6 @@
 					$num = $num_arr[0][0];
 				else
 					$num = "()";
-				echo "<br /><br />";
 				$newfieldscode_arr[] = "\t\t\t".$rep[$i]." = Control\Generate::".preg_replace('/\([0-9]*\)/', '', $this -> type_fields[$i])."generate".$num.";";
 			}
 

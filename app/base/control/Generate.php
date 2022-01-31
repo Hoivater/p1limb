@@ -133,11 +133,26 @@ use limb\app\base as Base;
 			return $result;
 		}
 		#генерируется ненастоящая ссылка латиницей
-		public static function linkgenerate()
-		{
+		public static function linkgenerate($name) {
 
-			return $result;
-		}
+        $arrayTranscription = array("а" => "a", "б" => "b", "в" => "v", "г" => "g", "д" => "d", "е" => "e", "ё" => "e", "ж" => "sh", "з" => "z", "и" => "i", "й" => "i", "к" => "k", "л" => "l", "м" => "m", "н" => "n", "о" => "o", "п" => "p", "р" => "r", "с" => "s", "т" => "t", "у" => "u", "ф" => "f", "х" => "h", "ц" => "c", "ч" => "ch", "ш" => "sh", "щ" => "shh", "ъ" => "", "ы" => "y", "ь" => "", "э" => "a", "ю" => "ua", "я" => "ya", "," => "_", "." => "_", ":" => "_", ";" => "_", ";" => "_", " " => "_", "1" => "1", "2" => "2", "3" => "3", "4" => "4", "5" => "5", "6" => "6", "7" => "7", "8" => "8", "9" => "9", "a" => "a", "b" => "b", "c" => "c", "d" => "d", "e" => "e", "f" => "f", "g" => "g", "h" => "h", "i" => "i", "j" => "j", "k" => "k", "l" => "l", "m" => "m", "n" => "n", "o" => "o", "p" => "p", "r" => "r", "s" => "s", "t" => "t", "u" => "u", "v" => "v", "w" => "w", "x" => "x", "y" => "y", "z" => "z");
+            $newname = "";
+            $name = mb_strtolower(trim($name));
+            $newarray = preg_split('//u',$name,-1,PREG_SPLIT_NO_EMPTY);//разбиение строки кириллицы в массив символов
+
+            for($i = 0; $i <= count($newarray)-1; $i++)
+            {
+                foreach($arrayTranscription as $key => $value)
+                {
+                    if($newarray[$i] == $key)
+                    {
+                        $newname = $newname.$value;
+                        continue;
+                    }
+                }
+            }
+        	return $newname;
+    	}
 		#пароль и оборачивается в md(5) 
 		public static function passgenerate()
 		{
@@ -145,6 +160,30 @@ use limb\app\base as Base;
 			shuffle($arr);
 
 			return md5($arr[0]);
+		}
+		
+		public static function emailgenerate()
+		{
+			$array_end = ["@yndex.ru", "@gmail.com", "@bk.org", "@mail.ru"];
+			$dictionary = file_get_contents(__DIR__."/../../../datastore/word/russian.tm");
+			$dictionary_arr = explode(", ", $dictionary);
+			shuffle($array_end);
+			shuffle($dictionary_arr);
+
+			$start = trim(self::linkgenerate($dictionary_arr[0]));
+
+			return $start.$array_end[0];
+		}
+		public static function codegenerate($num)
+		{
+			$code = "";
+			$arraysymbol = ["q","w","e","r","t","y","u","i","o","p","l","k","j","h","g","f","d","s","a","z","x","c","v","b","n","m","Q","W","E","R","T","Y","U","I","O","P","L","K","J","H","G","F","D","S","A","Z","X","C","V","B","N","M","!","@","%","^","&","*"];
+			shuffle($arraysymbol);
+			for ($i=0; $i < $num; $i++) { 
+				$code .= $arraysymbol[$i];
+			}
+
+			return $code;
 		}
 
 	}
