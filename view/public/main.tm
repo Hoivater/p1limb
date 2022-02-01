@@ -39,10 +39,10 @@
 			<div class="list-group mt-3">
 
 			  %menu%
-			  %startadmin%
+			%startadmin%
 			  <a href="/" class="list-group-item list-group-item-action">Добавить пункт меню</a>
-			  %endadmin%
-			  %startnoauth%
+			%endadmin%
+			%startnoauth%
 			  <a href="/registration" class="list-group-item list-group-item-action">Регистрация</a>
 			  <a href="/auth" class="list-group-item list-group-item-action">Войти</a>
 			%endnoauth%
