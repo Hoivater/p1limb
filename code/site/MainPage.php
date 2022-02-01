@@ -11,6 +11,7 @@
 	{
 		use tPage;
 
+
 		public function __construct()
 		{
 			parent::__construct();
@@ -24,7 +25,9 @@
 		public function Page()
 		{
 
-			$this -> page = $this -> html;
+			$auth = Base\Control\Control::IsRules();
+			$this -> page = $this -> Limb($auth);
+			// $this -> page = $this -> html;
 
 
 

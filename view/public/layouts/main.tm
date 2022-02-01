@@ -26,7 +26,7 @@
 </head>
 <header class='container-fluid pt-3 pb-2'>
 <a href = '/'><img src="/resourse/visible/logo.png" class='logo'>
-<h3>БЛОГ LIMB</h3></a>
+<h3>%header_text%</h3></a>
 </header>
 <body>
 <div  class='container'>
@@ -38,10 +38,14 @@
 			<h3 class='mt-3 '>Меню</h3>
 			<div class="list-group mt-3">
 
-			  %menu%
+			^start_repeat_menu^
+			<a href="%link%" class="list-group-item list-group-item-action">%name%</a>
+			^end_repeat_menu^
+
 			%startadmin%
 			  <a href="/" class="list-group-item list-group-item-action">Добавить пункт меню</a>
 			%endadmin%
+
 			%startnoauth%
 			  <a href="/registration" class="list-group-item list-group-item-action">Регистрация</a>
 			  <a href="/auth" class="list-group-item list-group-item-action">Войти</a>

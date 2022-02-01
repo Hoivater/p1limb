@@ -24,7 +24,7 @@
 			<div class="row">
 					<div class="table_auth">
 						<h3 class="text-center mb-3">Регистрация LIMB</h3>
-						<form name = "auth" action = "/modules/auth/Auth.php" method = "post">
+						<form name = "auth" action = "/app/modules/auth/Auth.php" method = "post">
 							<label for="name">Ваше имя:</label>
 							<input type = "text" name = "name" id = "name"  class="form-control mt-1" />
 							<label for="email">Ваш email:</label>

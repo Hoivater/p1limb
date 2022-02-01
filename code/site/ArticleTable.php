@@ -41,16 +41,16 @@
 			$table_key757658 = "`id`, `name`, `description`, `link`, `text`, `commentary`, `date_creation`";
 			for($i = 0; $i <= $num-1; $i++)
 			{
-				$id = Control\Generate::this_idgenerate();
-				$name = Control\Generate::varchargenerate(50);
-				$description = Control\Generate::varchargenerate(100);
-				$link = Control\Generate::linkgenerate($name);
-				$text = Control\Generate::textgenerate();
-				$commentary = 0;
-				$date_creation = Control\Generate::this_dategenerate();
-				$value = "".$id.", '".$name."', '".$description."', '".$link."', '".$text."', '".$commentary."', '".$date_creation."'";
-				$ri = new Base\RedactionInq($name77656756, $table_key757658);
-				$result = $ri -> insert($value);
+			$id = Control\Generate::this_idgenerate();
+			$name = Control\Generate::varchargenerate(50);
+			$description = Control\Generate::varchargenerate(100);
+			$link = Control\Generate::linkgenerate($name);
+			$text = Control\Generate::textgenerate();
+			$commentary = 0;
+			$date_creation = Control\Generate::this_dategenerate();
+			$value = "".$id.", '".$name."', '".$description."', '".$link."', '".$text."', '".$commentary."', '".$date_creation."'";
+			$ri = new Base\RedactionInq($name77656756, $table_key757658);
+			$result = $ri -> insert($value);
 			}
 			#code...
 		}

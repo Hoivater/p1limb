@@ -1,6 +1,6 @@
 <?php
 namespace limb\app\modules\auth;
-require "../../autoload.php";
+require "../../../autoload.php";
 
 if($_POST['nameForm'] == 'reg')
 {
