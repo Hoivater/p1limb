@@ -37,28 +37,36 @@ use limb\app\worker as Worker;#для шаблонизатора
 		}
 		protected function Limb($auth = "noauth")#сборщик страницы
 		{
-			if($auth !== "noauth")
-			{
-				$si = new Base\SearchInq("3289t_article");
-				$si -> selectQ();
-				$si -> orderDescQ();
-				$result = $si -> resQ(); //массив со всеми записями
+			$limb = new Worker\Limb();
 
-				$worker = new Worker\Limb();
-				$template = [
-					"norepeat" => $this -> main_tmplt,
-					"repeat" => $this -> main_repeat_tmplt,
-					"folder" => "main"
-				];
+			$template = [
+				"norepeat" => $this -> main_tmplt,
+				"repeat" => [$this -> main_repeat_tmplt, [
+					"norepeat" => ["%name%", "%link%", "%description%", "%date_creation%"],
+					"repeat" => "no",
+					"folder" => "no"
+				]],
+				"folder" => "main"
+			];
+			#################формируем data для полной сборки страницы
+				#получаем массив данных
+			$si = new Base\SearchInq("3289t_article");
+			$si -> selectQ();
+			$si -> orderDescQ();
+			$result = $si -> resQ(); //массив со всеми записями
+				#получаем массив данных
+			$page_ini = parse_ini_file(__DIR__."/../../view/page.ini");
+			$data = [
+				"norepeat" => ["title" => $page_ini["main_page_title"], "description" => $page_ini["main_page_description"]],
+				"repeat" => ["left_content" => $result]
+			];
+			#################формируем data для полной сборки страницы
 
 
-				$worker -> TemplateMaster($template, $data, $auth, $this -> html);
+			$render = $limb -> TemplateMaster($template, $data, $auth, $this -> html);
 
-			}
-			else
-			{
-				echo "РЕГИСТРАЦИЯ НЕПРЕДУСМОТРЕНА";
-			}
+			
+			return $render;
 		}
 	}
 ?>
