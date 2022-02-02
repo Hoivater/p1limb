@@ -39,6 +39,7 @@
 			<div class="list-group mt-3">
 
 			^start_repeat_menu^
+%name% %link%
 			<a href="%link%" class="list-group-item list-group-item-action">%name%</a>
 			^end_repeat_menu^
 

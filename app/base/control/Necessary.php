@@ -21,7 +21,7 @@ use limb\app\base as Base;
 			foreach ($tmplt as $true_key) {
 				$true_key = str_replace('%', '', $true_key);
 				foreach ($replace as $key => $value) {
-					if($true_key == $key)
+					if(trim($true_key) == $key)
 					{
 						$sortReplace[] = $value;
 						$control = true;
@@ -36,6 +36,27 @@ use limb\app\base as Base;
 			return  self::standartReplace($tmplt, $sortReplace, $html);
 		}
 
+		public static function asortReplace2($tmplt, $replace, $html)
+		{
+			$sortReplace = [];//отсортированный массив $replace под $tmplt
+			$control = false;
+			for($i = 0; $i < count($replace); $i++) {
+
+				for ($j = 0; $j < count($tmplt); $j++) {
+					$true_key = trim(str_replace('%', '', $tmplt[$j]));
+					if(isset($replace[$i][$true_key]))
+					{
+						$sortReplace[$i][] = $replace[$i][$true_key];
+						$control = true;
+					}
+				}
+				if($control === false)
+				{
+					$sortReplace[] = "";
+				}
+			}
+			return  self::ReplaceRepeat($tmplt, $sortReplace, $html);
+		}
 		//выводит сравнение двух массивов в таблицу
 		public static function CompareArrayInTable($arr1, $arr2)
 		{
