@@ -3,7 +3,6 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta name="keywords" content="%keywords%">
 	<meta name="description" content="%description%">
     <!-- Jquery -->
     <script src="/style/limb/js/jq_v_3_6_0.js"></script>
@@ -33,15 +32,34 @@
 	<div class="row">
 		<div class="col-md-8 col-12">
 			%left_content%
+
+			<div class="mod_pag m-3">
+				%module_pagination%
+			</div>
 		</div>
 		<div class="col-md-4 mb-3">
+
+			
+			<p class="mt-3">
+				%startadmin% 
+					Добрый день, Администратор
+				%endadmin%
+				%startuser% 
+					Добрый день, %name_user% 
+				%enduser%
+			</p>
+			
+
+			
+				<p class="mt-3"></p>
+			
 			<h3 class='mt-3 '>Меню</h3>
 			<div class="list-group mt-3">
 
-			^start_repeat_menu^
+^start_repeat_menu^
 %name% %link%
-			<a href="%link%" class="list-group-item list-group-item-action">%name%</a>
-			^end_repeat_menu^
+<a href="/category/%link%" class="list-group-item list-group-item-action">%name%</a>
+^end_repeat_menu^
 
 			%startadmin%
 			  <a href="/" class="list-group-item list-group-item-action">Добавить пункт меню</a>
@@ -51,9 +69,15 @@
 			  <a href="/registration" class="list-group-item list-group-item-action">Регистрация</a>
 			  <a href="/auth" class="list-group-item list-group-item-action">Войти</a>
 			%endnoauth%
+
+			%startall%
+			  <a href="/destructauth" class="list-group-item list-group-item-action">Выйти</a>
+			%endall%
+
 			</div>
 		</div>
 	</div>
+
 </div>
 </body>
 

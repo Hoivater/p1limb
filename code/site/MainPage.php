@@ -24,13 +24,9 @@
 		#вся работа с базой данных идет в родительском классе
 		public function Page()
 		{
-
 			$auth = Base\Control\Control::IsRules();
 			$this -> page = $this -> Limb($auth);
 			// $this -> page = $this -> html;
-
-
-
 		}
 
 	}

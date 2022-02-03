@@ -9,8 +9,8 @@ use limb\app\worker as Worker;#для шаблонизатора
 	class MainTable
 	{
 		protected $left_content;
-		protected $main_tmplt = ["%title%", "%description%", "%left_content%"];
-		protected $main_repeat_tmplt = ["%left_content%"];
+		protected $main_tmplt = ["%title%", "%description%", "%module_pagination%"];
+		
 
 		public function __construct()
 		{
@@ -41,32 +41,28 @@ use limb\app\worker as Worker;#для шаблонизатора
 
 			$template = [
 				"norepeat" => $this -> main_tmplt,
-				"replace_standart" => ["menu"],
-				"replace_internal" => ["left_content"]
+				"replace_standart" => "no",
+				"replace_internal" => [["name" => "left_content", "folder" => "main"]]
 			];
 			#################формируем data для полной сборки страницы
 				#получаем массив данных
 			$si = new Base\SearchInq("3289t_article");
 			$si -> selectQ();
 			$si -> orderDescQ();
-			$result = $si -> resQ(); //массив со всеми записями
+			$result = $si -> resQ();  //массив со всеми записями
+			$result_arr = $si -> paginateQ(5);
 				#получаем массив данных
+			$result = $result_arr[0];
 
-
-			$si2 = new Base\SearchInq("3289t_menu");
-			$si2 -> selectQ();
-			$si2 -> orderDescQ();
-			$menu = $si2 -> resQ(); //массив со всеми записями
-				#получаем массив данных
-
+			$pagination = $result_arr[1];
 
 			$page_ini = parse_ini_file(__DIR__."/../../view/page.ini");
 
-			$replace_main_tmplt = ["title" => $page_ini["main_page_title"], "description" => $page_ini["main_page_description"]];
+			$replace_main_tmplt = ["title" => $page_ini["main_page_title"], "description" => $page_ini["main_page_description"], "module_pagination" => $pagination];
 
 			$data = [
 				"norepeat" => $replace_main_tmplt,
-				"replace_standart" => [$menu],
+				"replace_standart" => "",
 				"replace_internal" => [$result]
 			];
 			#################формируем data для полной сборки страницы

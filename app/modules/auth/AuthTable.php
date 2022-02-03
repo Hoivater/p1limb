@@ -103,7 +103,6 @@ class AuthTable
 			$email = "";
 		}
 
-		//print_r($_COOKIE);
 		return [$result, $code, $email];
 		
 	}

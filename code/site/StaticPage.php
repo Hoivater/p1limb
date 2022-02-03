@@ -18,7 +18,7 @@ use limb\app\base as Base;
 		{
 			// session_start();
 			// if(isset($_SESSION['connect'])) unset($_SESSION['connect']);
-			$html = file_get_contents(__DIR__."/../../view/public/layouts/main.tm");
+			$this -> html = file_get_contents(__DIR__."/../../view/public/layouts/main.tm");
 
 			$this -> control = new Base\control\Control();
 
@@ -28,8 +28,9 @@ use limb\app\base as Base;
 
 			$connect = $_SESSION['connect'];
 
-			// $this -> html_static_page = $html;
-			$this -> html_static_page = Base\Control\Necessary::standartReplace($this -> tmplt, ["Блог LIMB"], $html);
+			
+			$auth = Base\Control\Control::IsRules();
+			$this -> html_static_page = $this -> Limb($auth);
 
 		}
 

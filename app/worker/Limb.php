@@ -17,33 +17,56 @@
 		public function TemplateMaster($template, $data, $auth, $html)#основная функция для сборки страницы
 		
 		{
-			if($auth !== "noauth"){#если авторизация присутствует
-				//сразу меняем заданный %...%
-				//далее избавляемся от правил видимости admin, user
-				// echo $html;
-				//
-				#проверяем обычные повторы на самой странице
-				if(isset($template["replace_standart"]) && is_array($template["replace_standart"]))
+			#сразу меняем replace_standart
+			#дальше формируем replace_internal
+			#далее избавляемся от правил видимости admin, user
+			//
+			#проверяем обычные повторы на самой странице
+			if(isset($template["replace_standart"]) && is_array($template["replace_standart"]))
+			{
+				for($i = 0; $i < count($template["replace_standart"]); $i++)
 				{
-					for($i = 0; $i < count($template["replace_standart"]); $i++)
-					{
-						$html = $this -> ReplaceStandart($template["replace_standart"][$i], $data["replace_standart"][$i], $html);
-					}
+					$html = $this -> ReplaceStandart($template["replace_standart"][$i], $data["replace_standart"][$i], $html);
 				}
-				#если есть что для простой замены, то заменяем
-				if(isset($template["norepeat"]) && is_array($template["norepeat"]))
-				{
-					$html = Control\Necessary::asortReplace($template["norepeat"], $data["norepeat"], $html);
-				}
-
 			}
-		}
+			if(isset($template["replace_internal"]) && is_array($template["replace_internal"]))
+			{
+				for($i = 0; $i < count($template["replace_internal"]); $i++)
+				{
+					$modules = $this -> ReplaceInternal($template["replace_internal"][$i], $data["replace_internal"][$i]);
+					$html = Control\Necessary::standartReplace("%".$template["replace_internal"][$i]["name"]."%", $modules, $html);
+				}
+			}
+			#если есть что для простой замены, то заменяем
+			if(isset($template["norepeat"]) && is_array($template["norepeat"]))
+			{
+				$html = Control\Necessary::asortReplace($template["norepeat"], $data["norepeat"], $html);
+			}
 
+			if($auth !== "noauth"){#если авторизация присутствует
+				$au = new Modules\Auth\AuthAccess($html, $auth);
+				$html = $au -> getResult();
+			}
+			return $html;
+		}
+		private function ReplaceInternal($template, $data)
+		{
+			$name = $template["name"];
+			$folder = $template["folder"];
+			#ищем tm файл для замены в указанной папке
+			if(file_exists(__DIR__."/../../view/public/".$folder."/".$name.".tm"))
+			{
+				$file_tm = file_get_contents(__DIR__."/../../view/public/".$folder."/".$name.".tm");
+				#добавить проверку на корректность файла в будущем
+				$html_module = $this -> ReplaceStandart($name, $data, $file_tm);
+			}
+			return $html_module;
+
+		}
 		private function ReplaceStandart($str_name, $replace, $html)
 		{
 			$start = "^start_repeat_".$str_name."^";
 			$end = "^end_repeat_".$str_name."^";
-
 
 			$html_for_repeat = $this -> textInternal([$start, $end], $html);#получаем html для повтора
 			$html = $this -> tmpReplace("&&LIMB&&", $html, [$start, $end]);#временная замена повторяющегося участка
@@ -51,10 +74,10 @@
 			$result_f = Control\Necessary::asortReplace2($html_for_repeat[0], $replace, $html_for_repeat[1]);
 			$html_finish = Control\Necessary::standartReplace("&&LIMB&&", $result_f, $html);
 
-			echo $html_finish;
+			return $html_finish;
 		}
 
-		#заменяем повторяющийся текст на значок шаблонизатора
+		#заменяем повторяющийся текст на значок шаблонизатора &&LIMB&&
 		private function tmpReplace($limb, $html, $arr)
 		{
 			$num_start = stripos($html, $arr[0]);

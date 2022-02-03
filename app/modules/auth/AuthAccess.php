@@ -5,7 +5,7 @@ namespace limb\app\modules\auth;
  */
 class AuthAccess
 {
-	private $roles = ['admin', 'user'];
+	private $roles = ['admin', 'user', 'noauth', 'all'];
 	private $html;
 	private $result;
 	private $auth;
@@ -36,9 +36,21 @@ class AuthAccess
 				$num_end = stripos($this -> html, $end_arr[$i]) + strlen($end_arr[$i]);
 				if($num_start !== false)
 				{
-					if($this -> auth == $this -> roles[$i] || $this -> auth == 'admin')
+					if($this -> auth == $this -> roles[$i] && $this -> roles[$i] != "noauth")
 					{
 						$inc = substr($this -> html, $num_start+strlen($start_arr[$i]), $num_end-$num_start-strlen($start_arr[$i])-strlen($end_arr[$i])); 
+					}
+					elseif($this -> auth == 'admin' && $this -> roles[$i] == "admin")
+					{
+						$inc = substr($this -> html, $num_start+strlen($start_arr[$i]), $num_end-$num_start-strlen($start_arr[$i])-strlen($end_arr[$i]));
+					}
+					elseif(($this -> auth == 'admin' || $this -> auth == 'user') && $this -> roles[$i] == "all")
+					{
+						$inc = substr($this -> html, $num_start+strlen($start_arr[$i]), $num_end-$num_start-strlen($start_arr[$i])-strlen($end_arr[$i]));
+					}
+					elseif($this -> auth === false && $this -> roles[$i] == 'noauth')
+					{
+						$inc = substr($this -> html, $num_start+strlen($start_arr[$i]), $num_end-$num_start-strlen($start_arr[$i])-strlen($end_arr[$i]));
 					}
 					else
 					{

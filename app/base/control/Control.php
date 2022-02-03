@@ -14,6 +14,19 @@
 			// code...
 		}
 
+		public static function NameUser()
+		{
+			$result = false;
+			$au = new Auth\AuthPage(false);
+			if(isset($_COOKIE['code']) && isset($_COOKIE['email']))
+			{
+				$code = htmlspecialchars($_COOKIE['code']);
+				$email = htmlspecialchars($_COOKIE['email']);
+				$auth = $au -> AuthControl($code, $email);
+				$result = $auth[1];
+			}
+			return $result;//auth[1] - имя пользователя
+		}
 
 		public static function IsAuth()
 		{

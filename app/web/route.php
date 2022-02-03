@@ -50,8 +50,8 @@ class Route
 				$_SESSION['numpage'] = 1;
 			}
 		}
-		// $this -> routeLimb();#Limb работа с таблицами
-		$this -> routePublicLimb(); #ваш проект
+		$this -> routeLimb();#Limb работа с таблицами
+		// $this -> routePublicLimb(); #ваш проект
 
 	}
 
@@ -75,6 +75,12 @@ class Route
 				}
 				
 				#модуль регистрации
+				elseif($route_arr[0] == "destructauth")
+				{
+					setcookie("code", '', -1);
+					setcookie("email", '', -1);
+					header("Location:/");				
+				}
 				elseif($route_arr[0] == "registration")
 				{
 					$html = new Modules\Auth\AuthPage(false);
