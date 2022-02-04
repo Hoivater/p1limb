@@ -22,11 +22,7 @@ use limb\app\base as Base; #для работы с базой данный
 		{
 			$limb = new Worker\Limb();
 
-			$template = [
-				"norepeat" => ["%header_text%", "%name_user%"],
-				"replace_standart" => ["menu"],
-				"replace_internal" => "no"
-			];
+
 			#################формируем data для полной сборки страницы
 				#получаем массив данных
 			
@@ -43,10 +39,13 @@ use limb\app\base as Base; #для работы с базой данный
 
 			$replace_main_tmplt = ["header_text" => "LIMB БЛОГ", "name_user" => $name];
 
+			$template = [
+				"norepeat" => ["%header_text%", "%name_user%"],
+				"repeat" => ["menu"],
+			];
 			$data = [
 				"norepeat" => $replace_main_tmplt,
-				"replace_standart" => [$menu],
-				"replace_internal" => "no"
+				"repeat" => [$menu],
 			];
 			#################формируем data для полной сборки страницы
 

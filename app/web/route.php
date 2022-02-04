@@ -76,7 +76,11 @@ class Route
 						$html -> Page($route_arr[1]);
 					}
 				}
-				
+				#админка
+				elseif($route_arr[0] == "add_article" && $this -> auth == "admin")
+				{
+					$html = new LimbSite\aNewArticlePage();
+				}
 				#модуль регистрации
 				elseif($route_arr[0] == "destructauth")
 				{

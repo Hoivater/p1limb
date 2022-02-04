@@ -17,37 +17,89 @@
 		public function TemplateMaster($template, $data, $auth, $html)#основная функция для сборки страницы
 		
 		{
-			#сразу меняем replace_standart
-			#дальше формируем replace_internal
+			#сразу меняем repeat
+			#дальше формируем internal
 			#далее избавляемся от правил видимости admin, user
-			//
-			#проверяем обычные повторы на самой странице
-			if(isset($template["replace_standart"]) && is_array($template["replace_standart"]))
+			#дальше norepeat
+			#потом роли AUTH
+
+
+			#REPEAT
+			if(isset($template["repeat"][0]))
 			{
-				if(isset($template["replace_standart"][0]["name"]) && isset($template["replace_standart"][0]["folder"]))
+				for($i = 0; $i < count($template["repeat"]); $i++)
 				{
-					for($i = 0; $i < count($template["replace_standart"]); $i++)
+					$html = $this -> ReplaceStandart($template["repeat"][$i], $data["repeat"][$i], $html);
+				}
+			}
+			// if(isset($template["replace_standart"]) && is_array($template["replace_standart"]))
+			// {
+			// 	if(isset($template["replace_standart"][0]["name"]) && isset($template["replace_standart"][0]["folder"]))
+			// 	{
+			// 		for($i = 0; $i < count($template["replace_standart"]); $i++)
+			// 		{
+			// 			$html = $this -> ReplaceStandartInternal($template["replace_standart"][$i]["name"], $data["replace_standart"][$i], $html, $template["replace_standart"][$i]["folder"]);
+			// 		}
+			// 	}
+			// 	else
+			// 	{
+			// 		for($i = 0; $i < count($template["replace_standart"]); $i++)
+			// 		{
+			// 			$html = $this -> ReplaceStandart($template["replace_standart"][$i], $data["replace_standart"][$i], $html);
+			// 		}
+			// 	}
+			// }
+
+			// {
+			// 	for($i = 0; $i < count($template["repeat_tm"]); $i++)
+			// 	{
+			// 		echo count($data["repeat_tm"][0]);
+
+			// 	}
+			// }
+			#INTERNAL
+			if(isset($template["internal"][0]))
+			{
+				if(!isset($template["repeat_tm"])){
+					for($i = 0; $i < count($template["internal"]); $i++)
 					{
-						$html = $this -> ReplaceStandartInternal($template["replace_standart"][$i]["name"], $data["replace_standart"][$i], $html, $template["replace_standart"][$i]["folder"]);
+						$name = $template["internal"][$i]["name"];
+						#так называется файл .tm
+						#так называется шаблон в layouts %name%
+						$folder = $template["internal"][$i]["folder"];
+						#так называется папка, которая хранит .tm
+						$modules = $this -> ReplaceInternal($template["internal"][$i], $data["internal"][$i]);
+						$html = Control\Necessary::standartReplace("%".$template["internal"][$i]["name"]."%", $modules, $html);
 					}
 				}
 				else
 				{
-					for($i = 0; $i < count($template["replace_standart"]); $i++)
-					{
-						$html = $this -> ReplaceStandart($template["replace_standart"][$i], $data["replace_standart"][$i], $html);
-					}
+						#значит repeat_tm везде постоянный
+						for($i = 0; $i < count($template["internal"]); $i++)
+						{
+							$name = $template["internal"][$i]["name"];
+							#так называется файл .tm
+							#так называется шаблон в layouts %name%
+							$folder = $template["internal"][$i]["folder"];
+							#так называется папка, которая хранит .tm
+							$modules = $this -> ReplaceInternalWithTM($template["internal"][$i], $data["internal"][$i], $template["repeat_tm"], $data["repeat_tm"]);
+							$html = Control\Necessary::standartReplace("%".$template["internal"][$i]["name"]."%", $modules, $html);
+						}
+
 				}
 			}
-			if(isset($template["replace_internal"]) && is_array($template["replace_internal"]))
-			{
-				for($i = 0; $i < count($template["replace_internal"]); $i++)
-				{
-					$modules = $this -> ReplaceInternal($template["replace_internal"][$i], $data["replace_internal"][$i]);
-					$html = Control\Necessary::standartReplace("%".$template["replace_internal"][$i]["name"]."%", $modules, $html);
-				}
-			}
-			#если есть что для простой замены, то заменяем
+
+			// if(isset($template["replace_internal"]) && is_array($template["replace_internal"]))
+			// {
+			// 	for($i = 0; $i < count($template["replace_internal"]); $i++)
+			// 	{
+			// 		$modules = $this -> ReplaceInternal($template["replace_internal"][$i], $data["replace_internal"][$i]);
+			// 		$html = Control\Necessary::standartReplace("%".$template["replace_internal"][$i]["name"]."%", $modules, $html);
+			// 	}
+			// }
+
+
+			#NOREPEAT
 			if(isset($template["norepeat"]) && is_array($template["norepeat"]))
 			{
 				$html = Control\Necessary::asortReplace($template["norepeat"], $data["norepeat"], $html);
@@ -55,13 +107,48 @@
 
 			if($auth !== "noauth")
 			{
-				#если авторизация присутствует
 				$au = new Modules\Auth\AuthAccess($html, $auth);
 				$html = $au -> getResult();
 			}
 			return $html;
 		}
 
+
+		private function ReplaceInternalWithTM($template, $data, $tm, $data_tm)
+		{
+			$name = $template["name"];
+			$folder = $template["folder"];
+			#ищем tm файл для замены в указанной папке
+			if(file_exists(__DIR__."/../../view/public/".$folder."/".$name.".tm"))
+			{
+				$file_tm = file_get_contents(__DIR__."/../../view/public/".$folder."/".$name.".tm");
+				$html_module = $file_tm;
+				for($i = 0; $i < count($tm); $i++){
+					if(str_contains($file_tm, "^start_repeat_".$tm[$i]."^"))
+					{
+						$html_module = $this -> ReplaceStandart($tm[$i], $data_tm[$i], $html_module);
+					}
+				}
+				#проверяем на возможность повтора
+				$file_tm_arr = explode("\n", $file_tm);
+				if(str_contains($file_tm, "^start_repeat_".$name."^"))
+				{
+					$html_module = $this -> ReplaceStandart($name, $data, $html_module);
+				}
+				else
+				{
+					$tmplt = explode(" ", $file_tm_arr[0]);
+					unset($file_tm_arr[0]);
+					$file_tm = implode("\n", $file_tm_arr);
+					$html_module = $this -> NoReplaceStandart($name, $data, $file_tm, $tmplt);
+				}
+
+			}
+
+
+			return $html_module;
+
+		}
 		private function ReplaceStandartInternal($name, $replace, $html, $folder){
 			$start = "^start_repeat_".$name."^";
 			$end = "^end_repeat_".$name."^";
@@ -69,16 +156,36 @@
 			if(file_exists(__DIR__."/../../view/public/".$folder."/".$name.".tm"))
 			{
 				$file_tm = file_get_contents(__DIR__."/../../view/public/".$folder."/".$name.".tm");
-				$html_for_repeat = $this -> textInternal([$start, $end], $file_tm);#получаем html для повтора
-				
-				$file_tm = $this -> tmpReplace("&&LIMB&&", $file_tm, [$start, $end]);#временная замена повторяющегося участка
 
-				$result_f = Control\Necessary::asortReplace2($html_for_repeat[0], $replace, $html_for_repeat[1]);
+				$ar = explode("\n", $file_tm);
+				if(str_contains($file_tm, "^start_repeat_".$name."^")){
 
-				$result_f2 = Control\Necessary::standartReplace("&&LIMB&&", $result_f, $file_tm);
-				$html_finish = Control\Necessary::standartReplace("%".$name."%", $result_f2, $html);
+					$html_for_repeat = $this -> textInternal([$start, $end], $file_tm);#получаем html для повтора
+
+					$file_tm = $this -> tmpReplace("&&LIMB&&", $file_tm, [$start, $end]);#временная замена повторяющегося участка
+
+					$result_f = Control\Necessary::asortReplace2($html_for_repeat[0], $replace, $html_for_repeat[1]);
+					$result_f2 = Control\Necessary::standartReplace("&&LIMB&&", $result_f, $file_tm);
+					$html_finish = Control\Necessary::standartReplace("%".$name."%", $result_f2, $html);
+				}
 			}
+
 			return $html_finish;
+		}
+		private function get_lvl(array $array) {
+		    $max_lvl = 1;
+
+		    foreach ($array as $value) {
+		        if (is_array($value)) {
+		            $lvl = $this -> get_lvl($value) + 1;
+
+		            if ($lvl> $max_lvl) {
+		                $max_lvl = $lvl;
+		            }
+		        }
+		    }
+
+		    return $max_lvl;
 		}
 		private function ReplaceInternal($template, $data)
 		{
@@ -90,8 +197,7 @@
 				$file_tm = file_get_contents(__DIR__."/../../view/public/".$folder."/".$name.".tm");
 				#проверяем на возможность повтора
 				$file_tm_arr = explode("\n", $file_tm);
-				$replace_real = false;
-				if(str_contains($file_tm_arr[0], "^start_repeat_".$name."^"))
+				if(str_contains($file_tm, "^start_repeat_".$name."^"))
 				{
 					$html_module = $this -> ReplaceStandart($name, $data, $file_tm);
 				}
@@ -118,6 +224,7 @@
 			$end = "^end_repeat_".$str_name."^";
 
 			$html_for_repeat = $this -> textInternal([$start, $end], $html);#получаем html для повтора
+
 			$html = $this -> tmpReplace("&&LIMB&&", $html, [$start, $end]);#временная замена повторяющегося участка
 
 			$result_f = Control\Necessary::asortReplace2($html_for_repeat[0], $replace, $html_for_repeat[1]);
@@ -125,6 +232,7 @@
 
 			return $html_finish;
 		}
+
 
 		#заменяем повторяющийся текст на значок шаблонизатора &&LIMB&&
 		private function tmpReplace($limb, $html, $arr)

@@ -57,6 +57,7 @@ use limb\app\base as Base;
 			}
 			return  self::ReplaceRepeat($tmplt, $sortReplace, $html);
 		}
+
 		//выводит сравнение двух массивов в таблицу
 		public static function CompareArrayInTable($arr1, $arr2)
 		{
@@ -103,6 +104,9 @@ use limb\app\base as Base;
 			}
 			return $result;
 		}
+
+
+
 
 		public static function ToCodeSql($code)
 		{

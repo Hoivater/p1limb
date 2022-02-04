@@ -41,11 +41,6 @@ use limb\app\base\control as Control;
 		{
 			$limb = new Worker\Limb();
 
-			$template = [
-				"norepeat" => $this -> main_tmplt,
-				"replace_standart" => "no",
-				"replace_internal" => [["name" => "left_content", "folder" => "main"]]
-			];
 			#################формируем data для полной сборки страницы
 				#получаем массив данных
 			$si = new Base\SearchInq("3289t_article");
@@ -57,17 +52,24 @@ use limb\app\base\control as Control;
 			$result = $result_arr[0];
 
 			$pagination = $result_arr[1];
-
+			$repeat_tm = [["id" => 1, "names" => "Первый"], ["id" => 1, "names" => "Первый"], ["id" => 1, "names" => "Первый"], ["id" => 1, "names" => "Первый"], ["id" => 2, "names" => "frfr"]];
+			// print_r($repeat_tm);echo "<br />";
+			// print_r($result);
 			$page_ini = parse_ini_file(__DIR__."/../../view/page.ini");
-			for ($i=0; $i < count($result); $i++) { 
+			for ($i = 0; $i < count($result); $i++) {
 				$result[$i]["date_creation"] = Control\Necessary::ConvertDate($result[$i]["date_creation"]);
 			}
 			$replace_main_tmplt = ["title" => $page_ini["main_page_title"], "description" => $page_ini["main_page_description"], "module_pagination" => $pagination, "smenu" => "", "address" => ""];
 
+			$template = [
+				"norepeat" => $this -> main_tmplt,
+				"internal" => [["name" => "left_content", "folder" => "main"]],
+				"repeat_tm" => ["testRepeatTM"]
+			];
 			$data = [
 				"norepeat" => $replace_main_tmplt,
-				"replace_standart" => "no",
-				"replace_internal" => [$result]
+				"internal" => [$result],
+				"repeat_tm" => [$repeat_tm]
 			];
 			#################формируем data для полной сборки страницы
 
