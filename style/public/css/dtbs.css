@@ -47,3 +47,7 @@ p{
 .two_commentary{
 	margin-left: 40px;
 }
+.address a{
+	color: black;
+	font-style: italic;
+}

@@ -2,6 +2,8 @@
 namespace limb\code\site;
 use limb\app\base as Base; #для работы с базой данный
 use limb\app\worker as Worker;#для шаблонизатора
+use limb\app\base\control as Control;
+
 	/**
 	 * работа с данными таблицы
 	 *
@@ -9,7 +11,7 @@ use limb\app\worker as Worker;#для шаблонизатора
 	class MainTable
 	{
 		protected $left_content;
-		protected $main_tmplt = ["%title%", "%description%", "%module_pagination%"];
+		protected $main_tmplt = ["%title%", "%description%", "%module_pagination%", "%smenu%", "%address%"];
 		
 
 		public function __construct()
@@ -57,12 +59,14 @@ use limb\app\worker as Worker;#для шаблонизатора
 			$pagination = $result_arr[1];
 
 			$page_ini = parse_ini_file(__DIR__."/../../view/page.ini");
-
-			$replace_main_tmplt = ["title" => $page_ini["main_page_title"], "description" => $page_ini["main_page_description"], "module_pagination" => $pagination];
+			for ($i=0; $i < count($result); $i++) { 
+				$result[$i]["date_creation"] = Control\Necessary::ConvertDate($result[$i]["date_creation"]);
+			}
+			$replace_main_tmplt = ["title" => $page_ini["main_page_title"], "description" => $page_ini["main_page_description"], "module_pagination" => $pagination, "smenu" => "", "address" => ""];
 
 			$data = [
 				"norepeat" => $replace_main_tmplt,
-				"replace_standart" => "",
+				"replace_standart" => "no",
 				"replace_internal" => [$result]
 			];
 			#################формируем data для полной сборки страницы

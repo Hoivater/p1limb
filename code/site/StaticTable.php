@@ -30,8 +30,6 @@ use limb\app\base as Base; #для работы с базой данный
 			#################формируем data для полной сборки страницы
 				#получаем массив данных
 			
-
-
 			$si2 = new Base\SearchInq("3289t_menu");
 			$si2 -> selectQ();
 			$si2 -> orderDescQ();

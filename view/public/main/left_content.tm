@@ -2,13 +2,13 @@
 %date_creation% %description% %name% %link%
 <div class="card mt-3 mt-3">
   <div class="card-header">
-    %date_creation%
+    <h5>%name%</h5>
   </div>
   <div class="card-body">
-    <h5 class="card-title">%name%</h5>
+    <h5 class="card-title">#%date_creation%</h5>
     %description%
     <div class = 'open_article text-end'>
-      <a href="%link%" class="btn btn-primary">Подробнее</a>
+      <a href="%name_site%article/%link%" class="btn btn-primary">Подробнее</a>
     </div>
   </div>
 </div>

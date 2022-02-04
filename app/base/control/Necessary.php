@@ -78,6 +78,10 @@ use limb\app\base as Base;
 			echo "</tr></table>";
 		}
 
+		public static function ConvertDate($unix)
+		{
+			return date('d.m.Y', $unix);
+		}
 
 		//конвертация файла в текст формата Ini
 		public static function ConvertInIni($arr)

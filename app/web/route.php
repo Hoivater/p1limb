@@ -50,9 +50,8 @@ class Route
 				$_SESSION['numpage'] = 1;
 			}
 		}
-		$this -> routeLimb();#Limb работа с таблицами
-		// $this -> routePublicLimb(); #ваш проект
-
+		// $this -> routeLimb();#Limb работа с таблицами
+		$this -> routePublicLimb(); #ваш проект
 	}
 
 	private function routePublicLimb()
@@ -63,15 +62,19 @@ class Route
 		{
 				if($route_arr[0] == "article")
 				{
-					if(isset($route_arr[1])){
-						#вывод определенной статьи
-					}
-					else
+					if(isset($route_arr[1]))
 					{
-						#вывод главной страницы
-
+						$html = new LimbSite\ArticlePage();
+						$html -> Page($route_arr[1]);
 					}
-
+				}
+				elseif($route_arr[0] == "category")
+				{
+					if(isset($route_arr[1]))
+					{
+						$html = new LimbSite\MenuPage();
+						$html -> Page($route_arr[1]);
+					}
 				}
 				
 				#модуль регистрации

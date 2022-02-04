@@ -47,7 +47,7 @@ use limb\app\base as Base;
 			for($i = 0; $i <= count($dictionary_arr)-1; $i++)
 			{
 				$result .= " ".$dictionary_arr[$i];
-				$length = strlen($result);
+				$length = mb_strlen($result);
 				if($length >= $min && $length <= $max)
 				{
 					break;
@@ -65,11 +65,14 @@ use limb\app\base as Base;
 		    return mb_strtoupper(mb_substr($text, 0, 1)) . mb_substr($text, 1);
 		}
 		#генерируется текст размером от 200 до 900 символов из слов
-		public static function textgenerate()
+		public static function textgenerate($num = "no")
 		{
-			$num = rand(200, 900);
-			$min = $num - 10;
-			$max = $num + 10;
+			if($num == "no")
+			{
+				$num = rand(200, 900);
+			}
+			$min = $num - 20;
+			$max = $num + 20;
 			$dictionary = file_get_contents(__DIR__."/../../../datastore/word/russian.tm");
 			$dictionary_arr = explode(", ", $dictionary);
 			shuffle($dictionary_arr);
@@ -85,7 +88,7 @@ use limb\app\base as Base;
 				{
 					$result .= " ".$dictionary_arr[$i];
 				}
-				$length = strlen($result);
+				$length = mb_strlen($result);
 
 				if($length >= $min && $length <= $max)
 				{
@@ -96,7 +99,6 @@ use limb\app\base as Base;
 					$result = mb_substr($result, 0, $max-4);
 					break;
 				}
-
 			}
 			return  self::mb_ucfirst(trim($result));
 		}
@@ -131,6 +133,10 @@ use limb\app\base as Base;
 		{
 
 			return $result;
+		}
+		public static function imagegenerate()
+		{
+			return "limb.jpg";
 		}
 		#генерируется ненастоящая ссылка латиницей
 		public static function linkgenerate($name) {

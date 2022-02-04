@@ -2,6 +2,7 @@
 	namespace limb\code\site;
 	use limb\app\base as Base;#для работы с валидатором и бд
 	use limb\app\base\control as Control;
+	use limb\app\worker as Worker;#для шаблонизатора
 	/**
 	 * работа с данными таблицы
 	 *
@@ -46,6 +47,39 @@ _NEWFIELDSCODE_
 			$result = $ri -> insert($value);
 			}
 			#code...
+		}
+
+
+		protected function Limb($auth = "noauth")#сборщик страницы
+		{
+			$limb = new Worker\Limb();
+
+			$si = new Base\SearchInq($this -> name);
+			$si -> selectQ();
+			$si -> whereQ("link", $link, "=");
+			$si -> orderDescQ();
+			$result = $si -> resQ();  //массив со всеми записями
+			if(isset($result[0]["id"])){
+
+				$template = [
+					"norepeat" => ["%title%", "%description%"],
+					"replace_standart" => "no",
+					"replace_internal" => [["name" => "left_content", "folder" => "article"]]
+				];
+				$data = [
+					"norepeat" => ["title" => $result[0]["name"], "description" => $result[0]["description"]],
+					"replace_standart" => "no",
+					"replace_internal" => [$result]
+				];
+
+
+				$render = $limb -> TemplateMaster($template, $data, $auth, $this -> html);
+			}
+			else
+			{
+				header("Location:/");
+			}
+			return $render;
 		}
 	}
 ?>

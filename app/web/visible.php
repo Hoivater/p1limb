@@ -1,5 +1,6 @@
 <?php
 namespace limb\app\web;
+use limb\app\base\control as Control;
 	/**
 	 *
 	 */
@@ -21,6 +22,8 @@ namespace limb\app\web;
 		}
 		public static function PrintPage($code)
 		{
+			$ini = parse_ini_file(__DIR__."/../../setting.ini");
+			$code = Control\Necessary::standartReplace("%name_site%", $ini["name_site"], $code);
 			echo $code;
 		}
 	}
