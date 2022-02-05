@@ -37,6 +37,7 @@ use limb\app\base\control as Control;
 
 			#code...
 		}
+
 		protected function Limb($auth = "noauth")#сборщик страницы
 		{
 			$limb = new Worker\Limb();

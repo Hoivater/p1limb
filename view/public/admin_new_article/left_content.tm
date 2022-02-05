@@ -1,7 +1,7 @@
 
 %csrf% 
 <h5 class = "mt-3">Добавить статью</h5>
-<form name = "add_article" action = "%name_site%app/form/formRoute.php" method = "post">
+<form name = "add_article" action = "%name_site%app/form/formRoute.php" method = "post" enctype="multipart/form-data">
 
 %csrf%
 <div class="mb-3">
@@ -9,8 +9,12 @@
   <input type="text" class="form-control" id="exampleFormControlInput1" name = "name">
 </div>
 <div class="mb-3">
-  <label for="exampleFormControlInput2" class="form-label">Обложка</label>
-  <input type="text" class="form-control" id="exampleFormControlInput2" name = "image">
+  <label for="formFileMultiple" class="form-label">Обложка</label>
+  <input class="form-control" type="file" id="formFileMultiple" name = "image" multiple>
+</div>
+<div class="mb-3">
+  <label for="formFileMultiple2" class="form-label">Обложка</label>
+  <input class="form-control" type="file" id="formFileMultiple2" name = "image3" multiple>
 </div>
 
 
@@ -36,5 +40,5 @@
   <label for="floatingTextarea2">Текст статьи</label>
 </div>
 
-<button type="submit" class="btn btn-primary mt-3" name = "nameForm" value = "add_article">Отправить</button>
+<button type="submit" class="btn btn-primary mt-3" name = "nameForm" value = "add_article">Добавить</button>
 </form>

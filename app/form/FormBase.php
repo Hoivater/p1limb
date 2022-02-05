@@ -24,7 +24,13 @@ use limb\app\base as Base;
 
 		function __construct($data)
 		{
-			$this -> data = $data;
+			$this -> data = [];
+			foreach ($data as $key => $value) {
+				if($key != "code")
+					$this -> data[$key] = htmlspecialchars($value);
+				else
+					$this -> data[$key] = $value;
+			}
 		}
 
 		public function tab_newIni()
@@ -41,6 +47,12 @@ use limb\app\base as Base;
 			$table_name = $this -> data["name_db"];
 			$class_name = 'limb\\code\\site\\'.ucfirst(str_replace($ini["fornameDB"], "", $table_name))."Table";
 			$obj = $class_name::insertFieldLimb($this -> data['count_fields']);
+		}
+		public function addArticle()
+		{
+
+			$res = \limb\code\site\ArticleTable::addArticle($this -> data);
+
 		}
 		public function ImportBD()
 		{

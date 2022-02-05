@@ -5,6 +5,7 @@ namespace limb\app\form;
 
 use limb\app\worker as Worker;
 use limb\app\base\control as Control;
+
 require "../../autoload.php";
 
 	class FormRoute extends FormBase
@@ -17,18 +18,13 @@ require "../../autoload.php";
 			parent::__construct($data);
 
 			if(!isset($_SESSION)) session_start();
-			
+			// print_r($this -> data);
 			if(isset($data['code']) && isset($_SESSION['csrf'])){
 				$csrf = $_SESSION['csrf'];
 				$csrf_site = $this -> data['code'];
 				if($csrf == $csrf_site)
 				{
 					$this -> routeF($name_form);
-					echo "OK";
-				}
-				else
-				{
-					echo "КИна не будет";
 				}
 			}
 			else
@@ -84,8 +80,7 @@ require "../../autoload.php";
 			}
 			elseif($name_form == "add_article")
 			{
-
-
+				$this -> result = $this -> addArticle();
 			}
 		}
 
@@ -99,6 +94,12 @@ require "../../autoload.php";
 	
 	if(isset($_POST))
 	{
+		if(isset($_FILES))
+		{
+			$ff = new FormFile($_FILES);
+			$names = $ff -> getNames();
+			print_r($names);
+		}
 		$fRoute = new FormRoute($_POST["nameForm"], $_POST);//вход данных и их обработка
 		session_start();
 		$_SESSION["message"] = $fRoute -> result();

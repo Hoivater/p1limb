@@ -42,21 +42,45 @@
 			$table_key757658 = "`id`, `name`, `category`, `image`, `description`, `link`, `text`, `commentary`, `date_creation`";
 			for($i = 0; $i <= $num-1; $i++)
 			{
-			$id = Control\Generate::this_idgenerate();
-			$name = Control\Generate::varchargenerate(50);
-			$category = Control\Generate::varchargenerate(30);
-			$description = Control\Generate::varchargenerate(100);
-			$link = Control\Generate::linkgenerate($name);
-			$text = Control\Generate::textgenerate(1800);
-			$commentary = 0;
-			$date_creation = Control\Generate::this_dategenerate();
-			$image = Control\Generate::imagegenerate();
-			
-			$value = "".$id.", '".$name."', '".$category."', '".$image."', '".$description."', '".$link."', '".$text."', '".$commentary."', '".$date_creation."'";
-			$ri = new Base\RedactionInq($name77656756, $table_key757658);
-			$result = $ri -> insert($value);
+				$id = Control\Generate::this_idgenerate();
+				$name = Control\Generate::varchargenerate(50);
+				$category = Control\Generate::varchargenerate(30);
+				$description = Control\Generate::varchargenerate(100);
+				$link = Control\Generate::linkgenerate($name);
+				$text = Control\Generate::textgenerate(1800);
+				$commentary = 0;
+				$date_creation = Control\Generate::this_dategenerate();
+				$image = Control\Generate::imagegenerate();
+
+				$value = "".$id.", '".$name."', '".$category."', '".$image."', '".$description."', '".$link."', '".$text."', '".$commentary."', '".$date_creation."'";
+				$ri = new Base\RedactionInq($name77656756, $table_key757658);
+				$result = $ri -> insert($value);
 			}
 			#code...
+		}
+
+		public static function addArticle($data)
+		{
+
+			$image = $data["image"];
+
+
+			$category = $data["category"];
+			$name77656756 = '3289t_article';
+			$table_key757658 = "`id`, `name`, `category`, `image`, `description`, `link`, `text`, `commentary`, `date_creation`";
+			$id = Control\Generate::this_idgenerate();
+			$name = $data["name"];
+			$description = $data["description"];
+			$link = Control\Generate::linkgenerate($name);
+			$text = $data["text"];
+			$commentary = 0;
+			$date_creation = time();
+
+
+			// $value = "".$id.", '".$name."', '".$category."', '".$image."', '".$description."', '".$link."', '".$text."', '".$commentary."', '".$date_creation."'";
+			// $ri = new Base\RedactionInq($name77656756, $table_key757658);
+			// $result = $ri -> insert($value);
+			return $result;
 		}
 
 
