@@ -90,13 +90,11 @@
 
 				$template = [
 					"norepeat" => ["%title%", "%description%", "%module_pagination%", "%smenu%"],
-					"replace_standart" => "no",
-					"replace_internal" => [["name" => "left_content", "folder" => "main"], ["name" => "address", "folder" => "category"]]
+					"internal" => [["name" => "left_content", "folder" => "main"], ["name" => "address", "folder" => "category"]]
 				];
 				$data = [
 					"norepeat" => ["title" => $name_category, "description" => $name_category, "module_pagination" => $pagination, "smenu" => ''],
-					"replace_standart" => "no",
-					"replace_internal" => [$result, [["name" => $name_category, "link" => $link_category]]]
+					"internal" => [$result, [["name" => $name_category, "link" => $link_category]]]
 				];
 
 

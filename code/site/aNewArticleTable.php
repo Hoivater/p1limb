@@ -3,6 +3,7 @@
 	use limb\app\base as Base;#для работы с валидатором и бд
 	use limb\app\base\control as Control;
 	use limb\app\worker as Worker;#для шаблонизатора
+	use limb\app\form as Form;
 	/**
 	 * работа с данными таблицы
 	 *
@@ -13,12 +14,14 @@
 		public $resultArticle;//финишная сборка для шаблона для возврата в _Page
 		public $name = '3289t_article';//имя таблицы которое используется по умолчанию
 		public $table_key = "`id`, `name`, `category`, `image`, `description`, `link`, `text`, `commentary`, `date_creation`";
+		public $csrf;
 		#public $replace = [$id, $name, $category, $image, $description, $link, $text, $commentary, $date_creation];
 
 
 		public function __construct()
 		{
 			#code...
+			$this -> csrf = Form\FormBase::csrf();
 		}
 
 		public static function insertFieldLimb($num)
@@ -54,13 +57,13 @@
 
 			$template = [
 				"norepeat" => ["%title%", "%description%", "%module_pagination%", "%name_category%", "%address%", "%smenu%"],
-				"replace_standart" => [["name" => "selectmenu", "folder" => "admin_new_article"]],
-				"replace_internal" => [["name" => "left_content", "folder" => "article"]]
+				"repeat_tm" => ["selectmenu"],
+				"internal" => [["name" => "left_content", "folder" => "admin_new_article"]]
 			];
 			$data = [
 				"norepeat" => ["title" => "Добавить статью", "description" => "", "module_pagination" => "", "name_category" => "", "address" => "", "smenu" => ""],
-				"replace_standart" => [[$menu]],
-				"replace_internal" => "no"
+				"repeat_tm" => [$menu],
+				"internal" => [[["csrf" => $this -> csrf]]]
 			];
 
 

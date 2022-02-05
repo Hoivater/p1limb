@@ -64,7 +64,7 @@
 ^end_repeat_menu^
 
 			%startadmin%
-			  <a href="%name_site%" class="list-group-item list-group-item-action">Добавить пункт меню</a>
+			  <a href="%name_site%redaction_menu" class="list-group-item list-group-item-action">Редактировать меню</a>
 			  <a href="%name_site%add_article" class="list-group-item list-group-item-action">Добавить статью</a>
 			%endadmin%
 

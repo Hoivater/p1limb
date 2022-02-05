@@ -58,5 +58,13 @@ use limb\app\base as Base;
 			}
 			return $result;
 		}
+		public static function csrf()
+		{
+			if(!isset($_SESSION))
+				session_start();
+			$_SESSION["csrf"] = Base\control\Generate::codegenerate(30);
+
+			return "<input type = 'text' value = '".$_SESSION['csrf']."' name = 'code' style='display:none;'/>";
+		}
 	}
 ?>

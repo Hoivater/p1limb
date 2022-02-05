@@ -1,3 +1,4 @@
+#norepeat
 %date_creation% %name% %text% %linkback% %linkprev% %name_article_back% %name_article_prev% 
 <div class="card mt-3">
   <div class="card-header">

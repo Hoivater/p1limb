@@ -131,15 +131,14 @@
 				$result[0]["date_creation"] = Control\Necessary::ConvertDate($result[0]["date_creation"]);
 				$template = [
 					"norepeat" => ["%title%", "%description%", "%module_pagination%", "%name_category%", "%address%"],
-					"internal" => [["name" => "smenu", "folder" => "article"]],
+					"internal" => [["name" => "smenu", "folder" => "article"], ["name" => "left_content", "folder" => "article"]],
 					"repeat_tm" => ["smenu"]
 				];
 				$data = [
 					"norepeat" => ["title" => $result[0]["name"], "description" => $result[0]["description"], "module_pagination" => "", "name_category" => $name_category, "address" => ""],
-					"internal" => [$category_article],
-					"repeat_tm" => [$result]
+					"internal" => [$menu, $result],
+					"repeat_tm" => [$category_article]
 				];
-				print_r($result);
 
 				$render = $limb -> TemplateMaster($template, $data, $auth, $this -> html);
 			}

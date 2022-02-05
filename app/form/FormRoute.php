@@ -15,8 +15,27 @@ require "../../autoload.php";
 		function __construct($name_form, $data)
 		{
 			parent::__construct($data);
+
+			if(!isset($_SESSION)) session_start();
 			
-			$this -> routeF($name_form);
+			if(isset($data['code']) && isset($_SESSION['csrf'])){
+				$csrf = $_SESSION['csrf'];
+				$csrf_site = $this -> data['code'];
+				if($csrf == $csrf_site)
+				{
+					$this -> routeF($name_form);
+					echo "OK";
+				}
+				else
+				{
+					echo "КИна не будет";
+				}
+			}
+			else
+			{
+
+			}
+			
 		}
 
 		private function routeF($name_form)
@@ -63,6 +82,11 @@ require "../../autoload.php";
 					$this -> result .= $masterClass -> addTablePageCl();#возвращает успех или нет
 				}
 			}
+			elseif($name_form == "add_article")
+			{
+
+
+			}
 		}
 
 
@@ -79,7 +103,8 @@ require "../../autoload.php";
 		session_start();
 		$_SESSION["message"] = $fRoute -> result();
 		
-		header('Location: '.$_SERVER['HTTP_REFERER']);
+		// header('Location: '.$_SERVER['HTTP_REFERER']);
+		exit();
 	}
 
 ?>

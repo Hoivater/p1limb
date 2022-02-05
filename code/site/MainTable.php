@@ -52,9 +52,7 @@ use limb\app\base\control as Control;
 			$result = $result_arr[0];
 
 			$pagination = $result_arr[1];
-			$repeat_tm = [["id" => 1, "names" => "Первый"], ["id" => 1, "names" => "Первый"], ["id" => 1, "names" => "Первый"], ["id" => 1, "names" => "Первый"], ["id" => 2, "names" => "frfr"]];
-			// print_r($repeat_tm);echo "<br />";
-			// print_r($result);
+
 			$page_ini = parse_ini_file(__DIR__."/../../view/page.ini");
 			for ($i = 0; $i < count($result); $i++) {
 				$result[$i]["date_creation"] = Control\Necessary::ConvertDate($result[$i]["date_creation"]);
@@ -63,13 +61,11 @@ use limb\app\base\control as Control;
 
 			$template = [
 				"norepeat" => $this -> main_tmplt,
-				"internal" => [["name" => "left_content", "folder" => "main"]],
-				"repeat_tm" => ["testRepeatTM"]
+				"internal" => [["name" => "left_content", "folder" => "main"]]
 			];
 			$data = [
 				"norepeat" => $replace_main_tmplt,
-				"internal" => [$result],
-				"repeat_tm" => [$repeat_tm]
+				"internal" => [$result]
 			];
 			#################формируем data для полной сборки страницы
 

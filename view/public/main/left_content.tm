@@ -7,17 +7,7 @@
   <div class="card-body">
     <h5 class="card-title">#%date_creation%</h5>
     %description%
-<ul>
-    ^start_repeat_testRepeatTM^
-%id% %names%
-  <li>%id%) %names%</li>
-    ^end_repeat_testRepeatTM^
-  </ul>
 
-
-<ul>
-
-  </ul>
     <div class = 'open_article text-end'>
       <a href="%name_site%article/%link%" class="btn btn-primary">Подробнее</a>
     </div>

@@ -23,7 +23,6 @@
 			#дальше norepeat
 			#потом роли AUTH
 
-
 			#REPEAT
 			if(isset($template["repeat"][0]))
 			{
@@ -82,8 +81,23 @@
 							#так называется шаблон в layouts %name%
 							$folder = $template["internal"][$i]["folder"];
 							#так называется папка, которая хранит .tm
-							$modules = $this -> ReplaceInternalWithTM($template["internal"][$i], $data["internal"][$i], $template["repeat_tm"], $data["repeat_tm"]);
-							$html = Control\Necessary::standartReplace("%".$template["internal"][$i]["name"]."%", $modules, $html);
+							if(!isset($data["internal"][$i])){
+								$data_internal_i = [""];
+							}
+							else
+								$data_internal_i = $data["internal"][$i];
+
+								
+								$modules = $this -> ReplaceInternalWithTM($template["internal"][$i], $data_internal_i, $template["repeat_tm"], $data["repeat_tm"]);
+								$html = Control\Necessary::standartReplace("%".$template["internal"][$i]["name"]."%", $modules, $html);
+
+							// }
+							// else
+							// {
+							// 	// $modules = $this -> ReplaceInternalWithTM($template["internal"][$i], $data["internal"], $template["repeat_tm"], $data["repeat_tm"]);
+							// 	$modules = $this -> NoReplaceInternalWithTM($template["internal"][$i], $data, $template["repeat_tm"], $data["repeat_tm"][$i]);
+							// 	$html = Control\Necessary::standartReplace("%".$template["internal"][$i]["name"]."%", $modules, $html);								
+							// }
 						}
 
 				}
@@ -114,8 +128,9 @@
 		}
 
 
-		private function ReplaceInternalWithTM($template, $data, $tm, $data_tm)
-		{
+		private function NoReplaceInternalWithTM($template, $data, $tm, $data_tm)
+		{	
+
 			$name = $template["name"];
 			$folder = $template["folder"];
 			#ищем tm файл для замены в указанной папке
@@ -130,16 +145,58 @@
 					}
 				}
 				#проверяем на возможность повтора
-				$file_tm_arr = explode("\n", $file_tm);
 				if(str_contains($file_tm, "^start_repeat_".$name."^"))
 				{
 					$html_module = $this -> ReplaceStandart($name, $data, $html_module);
 				}
 				else
 				{
-					$tmplt = explode(" ", $file_tm_arr[0]);
+					
+					$file_tm_arr = explode("\n", $html_module);
+					$tmplt = explode(" ", $file_tm_arr[1]);
 					unset($file_tm_arr[0]);
+					unset($file_tm_arr[1]);
 					$file_tm = implode("\n", $file_tm_arr);
+					$html_module = $this -> NoReplaceStandart($name, $data, $file_tm, $tmplt);
+				}
+
+			}
+
+
+			return $html_module;
+
+		}
+		private function ReplaceInternalWithTM($template, $data, $tm, $data_tm)
+		{	
+
+			$name = $template["name"];
+			$folder = $template["folder"];
+			#ищем tm файл для замены в указанной папке
+			if(file_exists(__DIR__."/../../view/public/".$folder."/".$name.".tm"))
+			{
+				$file_tm = file_get_contents(__DIR__."/../../view/public/".$folder."/".$name.".tm");
+				$html_module = $file_tm;
+				for($i = 0; $i < count($tm); $i++){
+					if(str_contains($file_tm, "^start_repeat_".$tm[$i]."^"))
+					{
+						$html_module = $this -> ReplaceStandart($tm[$i], $data_tm[$i], $html_module);
+					}
+				}
+				#проверяем на возможность повтора
+				if(str_contains($file_tm, "^start_repeat_".$name."^"))
+				{
+					$html_module = $this -> ReplaceStandart($name, $data, $html_module);
+				}
+				else
+				{
+					
+					$file_tm_arr = explode("\n", $html_module);
+					$tmplt = explode(" ", $file_tm_arr[1]);
+
+					unset($file_tm_arr[0]);
+					unset($file_tm_arr[1]);
+					$file_tm = implode("\n", $file_tm_arr);
+
 					$html_module = $this -> NoReplaceStandart($name, $data, $file_tm, $tmplt);
 				}
 
@@ -203,8 +260,9 @@
 				}
 				else
 				{
-					$tmplt = explode(" ", $file_tm_arr[0]);
+					$tmplt = explode(" ", $file_tm_arr[1]);
 					unset($file_tm_arr[0]);
+					unset($file_tm_arr[1]);
 					$file_tm = implode("\n", $file_tm_arr);
 					$html_module = $this -> NoReplaceStandart($name, $data, $file_tm, $tmplt);
 				}
