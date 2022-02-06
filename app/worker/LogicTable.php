@@ -19,11 +19,14 @@
 		//в конструкторе записываем полученные данные, в функциях выполянем основное назначение 
 		function __construct($data)
 		{
+
 			$filename = "temporary.ini";
 			$commands = $data["code_user"];//текст запроса пользователя
 			file_put_contents($filename, $commands);//запись в временный файл
 			$commands_array = parse_ini_file($filename);//массив запроса пользователей
-			unlink($filename);//удаляем временный файл
+
+
+			// unlink($filename);//удаляем временный файл
 
 
 			#достаем name_db

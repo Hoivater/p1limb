@@ -33,6 +33,14 @@
 			#code...
 
 		}
+		public static function delete_article($link)
+		{
+			$name77656756 = '3289t_article';
+			$table_key757658 = "`id`, `name`, `category`, `image`, `description`, `link`, `text`, `commentary`, `date_creation`";
+			$ri = new Base\RedactionInq($name77656756, $table_key757658);
+			$ri -> delete("link", $link);
+
+		}
 		#метод добавляющий данные в таблицу, value - строка следующего вида
 		#NULL, '".$this -> title."', '".$this -> keywords."', '".$this -> description."'
 		#функция для автозаполнения созданной таблицы, можно корретировать функции, например выбрать fotogenerate /в будущем =)
@@ -63,8 +71,6 @@
 		{
 
 			$image = $data["image"];
-
-
 			$category = $data["category"];
 			$name77656756 = '3289t_article';
 			$table_key757658 = "`id`, `name`, `category`, `image`, `description`, `link`, `text`, `commentary`, `date_creation`";
@@ -72,14 +78,28 @@
 			$name = $data["name"];
 			$description = $data["description"];
 			$link = Control\Generate::linkgenerate($name);
+
+			#UNIQUE LINK
+
+			$si = new Base\SearchInq("3289t_article");
+			$si -> selectQ();
+			$si -> whereQ("link", $link, "=");
+			$result = $si -> resQ();  //массив со всеми записями
+			if(isset($result[0]["id"]))
+			{
+				$link = $link.Control\Generate::nameLatinGenerate(4);
+			}
+			#UNIQUE LINK
+
+
 			$text = $data["text"];
 			$commentary = 0;
 			$date_creation = time();
 
 
-			// $value = "".$id.", '".$name."', '".$category."', '".$image."', '".$description."', '".$link."', '".$text."', '".$commentary."', '".$date_creation."'";
-			// $ri = new Base\RedactionInq($name77656756, $table_key757658);
-			// $result = $ri -> insert($value);
+			$value = "".$id.", '".$name."', '".$category."', '".$image."', '".$description."', '".$link."', '".$text."', '".$commentary."', '".$date_creation."'";
+			$ri = new Base\RedactionInq($name77656756, $table_key757658);
+			$result = $ri -> insert($value);
 			return $result;
 		}
 
@@ -153,15 +173,39 @@
 					}
 				}
 				$result[0]["date_creation"] = Control\Necessary::ConvertDate($result[0]["date_creation"]);
+
+
+
+				#######################COMMENTARY##############################
+				##Простой вид
+
+				$si3 = new Base\SearchInq("3289t_comments");
+				$si3 -> selectQ();
+				$si3 -> whereQ('id_article', $result[0]["id"], "=");
+				$si3 -> orderDescQ();
+				$commentary = $si3 -> resQ();
+
+				$result_arr = $si3 -> paginateQ(4);
+				#получаем массив данных
+				$commentary = $result_arr[0];
+
+				$pagination = $result_arr[1];
+
+
+				for($j = 0; $j < count($commentary); $j++)
+				{
+					$commentary[$j]["date"] = Control\Necessary::ConvertTime($commentary[$j]["date"]);
+				}
+				#######################COMMENTARY##############################
 				$template = [
 					"norepeat" => ["%title%", "%description%", "%module_pagination%", "%name_category%", "%address%"],
 					"internal" => [["name" => "smenu", "folder" => "article"], ["name" => "left_content", "folder" => "article"]],
-					"repeat_tm" => ["smenu"]
+					"repeat_tm" => ["smenu", "OneComment"]
 				];
 				$data = [
-					"norepeat" => ["title" => $result[0]["name"], "description" => $result[0]["description"], "module_pagination" => "", "name_category" => $name_category, "address" => ""],
+					"norepeat" => ["title" => $result[0]["name"], "description" => $result[0]["description"], "module_pagination" => $pagination, "name_category" => $name_category, "address" => ""],
 					"internal" => [$menu, $result],
-					"repeat_tm" => [$category_article]
+					"repeat_tm" => [$category_article, $commentary]
 				];
 
 				$render = $limb -> TemplateMaster($template, $data, $auth, $this -> html);

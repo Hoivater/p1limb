@@ -7,6 +7,7 @@ use limb\app\base as Base;
 	{
 		public static function standartReplace($tmplt, $replace, $html)
 		{
+
 			return str_replace($tmplt, $replace, $html);
 		}
 		//имена одинаковые но не в том порядке (обязательно массивы)
@@ -82,6 +83,10 @@ use limb\app\base as Base;
 		public static function ConvertDate($unix)
 		{
 			return date('d.m.Y', $unix);
+		}
+		public static function ConvertTime($unix)
+		{
+			return date('G:i:s d.m.Y', $unix);
 		}
 
 		//конвертация файла в текст формата Ini

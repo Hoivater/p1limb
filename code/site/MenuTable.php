@@ -52,7 +52,72 @@
 			}
 			#code...
 		}
+		public static function redMenu($post)
+		{
+			$name77656756 = '3289t_menu';
+			$table_key757658 = "`id`, `name`, `link`, `visible`";
+			$name = $post["name"];
+			$ri = new Base\RedactionInq($name77656756, $table_key757658);
+			if($name !== "")
+			{
 
+				$id = Control\Generate::this_idgenerate();
+				$link = Control\Generate::linkgenerate($name);
+
+				#UNIQUE LINK
+
+				$si = new Base\SearchInq("3289t_menu");
+				$si -> selectQ();
+				$si -> whereQ("link", $link, "=");
+				$result = $si -> resQ();  //массив со всеми записями
+				if(isset($result[0]["id"]))
+				{
+					$link = $link.Control\Generate::nameLatinGenerate(4);
+				}
+				#UNIQUE LINK
+
+
+				$visible = 1;
+				$value = "".$id.", '".$name."', '".$link."', '".$visible."'";
+
+				$result = $ri -> insert($value);
+
+			}
+			if(isset($post["delete"]))
+			{
+				$idA = [];
+				$linkA = [];
+				$nameA = [];
+
+				#Получаем список id с которыми необходимо провести какие-то действия
+				#Получаем их name,
+				#Получаем их link
+				foreach ($post as $key => $value) {
+					if(str_contains($key, "menu"))
+					{
+						$idA[] = (int)str_replace("menu", "", $key);
+						$linkA[] = $value;
+					}
+				}
+				for($i = 0; $i < count($idA); $i++)
+				{
+					$nameA[] = $post["text".$idA[$i]];
+				}
+				if($post["delete"] == "no")
+				{
+					#изменяем имена
+					for ($i=0; $i < count($nameA); $i++) {
+						$ri -> update('name', $nameA[$i], 'id', $idA[$i]);
+					}
+
+				}
+				elseif($post["delete"] == "yes")
+				{
+					for($i = 0; $i < count($idA); $i++)
+						$ri -> delete('id', $idA[$i]);
+				}
+			}
+		}
 		protected function Limb($auth, $link)#сборщик страницы
 		{
 			$limb = new Worker\Limb();

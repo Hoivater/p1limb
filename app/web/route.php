@@ -77,9 +77,41 @@ class Route
 					}
 				}
 				#админка
+				elseif($route_arr[0] == "redaction_article" && $this -> auth == "admin")
+				{
+					if(isset($route_arr[1]))
+					{
+						$html = new LimbSite\aNewArticlePage($route_arr[1]);
+					}
+				}
 				elseif($route_arr[0] == "add_article" && $this -> auth == "admin")
 				{
 					$html = new LimbSite\aNewArticlePage();
+				}
+				elseif($route_arr[0] == "redaction_menu" && $this -> auth == "admin")
+				{
+					$html = new LimbSite\aRedactionMenuPage();
+				}
+				elseif($route_arr[0] == "maps_article" && $this -> auth == "admin")
+				{
+					if(isset($route_arr[1]))
+					{
+						$html = new LimbSite\mapsArticlePage($route_arr[1]);
+
+					}
+					else
+					{
+						$html = new LimbSite\mapsArticlePage();
+					}
+				}
+				elseif($route_arr[0] == "delete" && $this -> auth == "admin")
+				{
+					if(isset($route_arr[1]))
+					{
+						LimbSite\ArticleTable::delete_article($route_arr[1]);
+						header('Location: '.$_SERVER['HTTP_REFERER']);
+						exit();
+					}
 				}
 				#модуль регистрации
 				elseif($route_arr[0] == "destructauth")

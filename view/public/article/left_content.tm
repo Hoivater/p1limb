@@ -1,5 +1,5 @@
 #norepeat
-%date_creation% %name% %text% %linkback% %linkprev% %name_article_back% %name_article_prev% 
+%date_creation% %name% %text% %linkback% %linkprev% %name_article_back% %name_article_prev% `
 <div class="card mt-3">
   <div class="card-header">
     %date_creation%
@@ -28,23 +28,27 @@
     %startnoauth%
     <h4 class="m-3">Для участия в обсуждении необходимо зарегистрироваться</h4>
     %endnoauth%
-  	<div class='one_commentary'>
-  		<img class="avatar rounded-circle" src="/resourse/data/avatars.jpg">
-  		<p class="name_author">Маорен</p>
-  		<p class="time">12:21 21.12.2021</p>
-  		<div class="clean"></div>
-  		<p class="text_commenatary p-3 pt-0">
-  			Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat odit in suscipit reprehenderit provident ipsa perspiciatis fugiat rerum quasi atque repellat asperiores magni, laboriosam eos at itaque quibusdam amet!
-  		</p>
-  	</div>
-  	<div class="two_commentary">
-  		<img class="avatar rounded-circle" src="/resourse/data/avatars.jpg">
-  		<p class="name_author">Маорен</p>
-  		<p class="time">12:21 21.12.2021</p>
-  		<div class="clean"></div>
-  		<p class="text_commenatary p-3 pt-0">
-  			Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat odit in suscipit reprehenderit provident ipsa perspiciatis fugiat rerum quasi atque repellat asperiores magni, laboriosam eos at itaque quibusdam amet!
-  		</p>
-  	</div>
+
+^start_repeat_OneComment^
+%author% %date% %comment%
+<div class='one_commentary'>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-2">
+        <p class="name_author">%author%</p>
+        <p class="time">%date%</p>
+      </div>
+      <div class="col-10">
+        <p class="text_commenatary p-3 pt-0">
+          %comment%
+        </p>
+
+      </div>
+    </div>
+  </div>
+
+</div>
+^end_repeat_OneComment^
+
   </div>
 </div>

@@ -39,7 +39,6 @@
 			}
 			if($result === 2)
 			{
-				echo "Проверка пройдена";
 				for($i = 0; $i < count($name_for_table); $i++)
 				{
 					if($this -> files[$name_for_table[$i]]["name"])
@@ -51,12 +50,13 @@
 				foreach($this -> names as $key => $value)
 				{
 					$name = $value;
-					copy($this -> files[$key]['tmp_name'], __DIR__.'/../../'.$name);
+					copy($this -> files[$key]['tmp_name'], __DIR__.'/../../'.$this -> ini["folder_file"].$name);
 				}
 			}
 			else
 			{
 				$res = "Изображения не были загружены. Несовпадений: ".($result-2);
+				$_SESSION['message'] = $res;
 
 			}
 		}

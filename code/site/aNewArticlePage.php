@@ -12,13 +12,18 @@
 	{
 		use tPage;
 
-		public function __construct()
+		public function __construct($link = '')
 		{
 			parent::__construct();
 			$staticPage = new StaticPage();//получение html кода статической части страницы
 
 			$this -> html = $staticPage -> getStaticPage();
-			$this -> Page();
+			if($link == "")
+				$this -> Page();
+			else
+			{
+				$this -> redaction($link);
+			}
 			
 		}
 		#метод для сборки страницы
@@ -30,6 +35,13 @@
 			session_start();
 			$auth = Control\Control::IsRules();
 			$this -> page = $this -> Limb($auth);
+
+		}
+		public function redaction($link)
+		{
+			session_start();
+			$auth = Control\Control::IsRules();
+			$this -> page = $this -> LimbRedaction($auth, $link);
 
 		}
 

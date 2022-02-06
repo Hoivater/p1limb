@@ -21,16 +21,31 @@ use limb\app\base as Base;
 	{	
 		public $ini_new;//перезаписанный массив
 		public $data;//массив данных полученный через форму
+		public $ex = ["connect", "importBD", "newFields", "newTable", "redTable"];#исключения для htmlspecialchar
+		protected $controlHtml;
 
 		function __construct($data)
 		{
 			$this -> data = [];
-			foreach ($data as $key => $value) {
-				if($key != "code")
-					$this -> data[$key] = htmlspecialchars($value);
-				else
-					$this -> data[$key] = $value;
+			$this -> controlHtml = 2;
+			for($i = 0; $i < count($this -> ex); $i++)
+			{
+				if($data["nameForm"] == $this -> ex[$i]) $this -> controlHtml += 1;
 			}
+			if($this -> controlHtml == 2)
+			{
+				foreach ($data as $key => $value) {
+					if($key != "code")
+						$this -> data[$key] = htmlspecialchars($value);
+					else
+						$this -> data[$key] = $value;
+				}
+			}
+			else
+			{
+				$this -> data = $data;
+			}
+
 		}
 
 		public function tab_newIni()
@@ -52,7 +67,20 @@ use limb\app\base as Base;
 		{
 
 			$res = \limb\code\site\ArticleTable::addArticle($this -> data);
+			return $res;
 
+		}
+		public function redMenu()
+		{
+
+			$res = \limb\code\site\MenuTable::redMenu($this -> data);
+			return $res;
+		}
+		public function redArticle()
+		{
+
+			$res = \limb\code\site\aNewArticleTable::redArticle($this -> data);
+			return $res;
 		}
 		public function ImportBD()
 		{

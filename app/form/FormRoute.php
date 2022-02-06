@@ -18,19 +18,22 @@ require "../../autoload.php";
 			parent::__construct($data);
 
 			if(!isset($_SESSION)) session_start();
-			// print_r($this -> data);
-			if(isset($data['code']) && isset($_SESSION['csrf'])){
-				$csrf = $_SESSION['csrf'];
-				$csrf_site = $this -> data['code'];
-				if($csrf == $csrf_site)
-				{
-					$this -> routeF($name_form);
+
+			if($this -> controlHtml == 2){
+				if(isset($data['code']) && isset($_SESSION['csrf'])){
+					$csrf = $_SESSION['csrf'];
+					$csrf_site = $this -> data['code'];
+					if($csrf == $csrf_site)
+					{
+						$this -> routeF($name_form);
+					}
 				}
 			}
 			else
 			{
-
+				$this -> routeF($name_form);
 			}
+
 			
 		}
 
@@ -81,6 +84,16 @@ require "../../autoload.php";
 			elseif($name_form == "add_article")
 			{
 				$this -> result = $this -> addArticle();
+
+			}
+			elseif($name_form == "red_menu")
+			{
+				$this -> result = $this -> redMenu();
+			}
+			elseif($name_form == "red_article")
+			{
+				$this -> result = $this -> redArticle();
+
 			}
 		}
 
@@ -94,17 +107,20 @@ require "../../autoload.php";
 	
 	if(isset($_POST))
 	{
-		if(isset($_FILES))
+		if(count($_FILES) !== 0)
 		{
 			$ff = new FormFile($_FILES);
 			$names = $ff -> getNames();
-			print_r($names);
+			$post_files = array_merge($names, $_POST);
 		}
-		$fRoute = new FormRoute($_POST["nameForm"], $_POST);//вход данных и их обработка
+		else{
+			$post_files = $_POST;
+		}
+		$fRoute = new FormRoute($_POST["nameForm"], $post_files);//вход данных и их обработка
 		session_start();
 		$_SESSION["message"] = $fRoute -> result();
 		
-		// header('Location: '.$_SERVER['HTTP_REFERER']);
+		header('Location: '.$_SERVER['HTTP_REFERER']);
 		exit();
 	}
 

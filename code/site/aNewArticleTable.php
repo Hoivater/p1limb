@@ -46,7 +46,17 @@
 			}
 			#code...
 		}
+		public static function redArticle($data)
+		{
+			print_r($data);
+			$table_key757658 = "`id`, `name`, `category`, `image`, `description`, `link`, `text`, `commentary`, `date_creation`";
+			$ri = new  Base\RedactionInq("3289t_article", $table_key757658);
 
+			$ri -> update("name", $data["name"], "link", $data["link"]);
+			$ri -> update("description", $data["description"], "link", $data["link"]);
+			$ri -> update("category", $data["category"], "link", $data["link"]);
+			$ri -> update("text", $data["text"], "link", $data["link"]);
+		}
 		protected function Limb($auth)#сборщик страницы
 		{
 			$limb = new Worker\Limb();
@@ -64,6 +74,47 @@
 				"norepeat" => ["title" => "Добавить статью", "description" => "", "module_pagination" => "", "name_category" => "", "address" => "", "smenu" => ""],
 				"repeat_tm" => [$menu],
 				"internal" => [[["csrf" => $this -> csrf]]]
+			];
+
+
+			$render = $limb -> TemplateMaster($template, $data, $auth, $this -> html);
+
+			return $render;
+		}
+		protected function LimbRedaction($auth, $link)#сборщик страницы
+		{
+			$limb = new Worker\Limb();
+
+			$si = new Base\SearchInq("3289t_menu");
+			$si -> selectQ();
+			$menu = $si -> resQ();
+
+			$si2 = new Base\SearchInq("3289t_article");
+			$si2 -> selectQ();
+			$si2 -> whereQ('link', $link, "=");
+			$article = $si2 -> resQ();
+			if(isset($article[0]["id"]))
+			{
+				$article[0]["csrf"] = $this -> csrf;
+				for($i = 0; $i < count($menu); $i++)
+				{
+					if($menu[$i]["link"] == $article[0]["category"])
+					{
+						$article[0]["category"] = $menu[$i]["name"];
+						continue;
+					}
+				}
+			}
+
+			$template = [
+				"norepeat" => ["%title%", "%description%", "%module_pagination%", "%name_category%", "%address%", "%smenu%"],
+				"repeat_tm" => ["selectmenu"],
+				"internal" => [["name" => "left_content", "folder" => "admin_redaction_article"]]
+			];
+			$data = [
+				"norepeat" => ["title" => "Добавить статью", "description" => "", "module_pagination" => "", "name_category" => "", "address" => "", "smenu" => ""],
+				"repeat_tm" => [$menu],
+				"internal" => [$article]
 			];
 
 

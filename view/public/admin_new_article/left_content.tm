@@ -12,11 +12,6 @@
   <label for="formFileMultiple" class="form-label">Обложка</label>
   <input class="form-control" type="file" id="formFileMultiple" name = "image" multiple>
 </div>
-<div class="mb-3">
-  <label for="formFileMultiple2" class="form-label">Обложка</label>
-  <input class="form-control" type="file" id="formFileMultiple2" name = "image3" multiple>
-</div>
-
 
 <div class="form-floating mt-3">
   <textarea class="form-control" placeholder="Краткое описание" id="floatingTextarea2" name  = "description" style="height: 100px"></textarea>

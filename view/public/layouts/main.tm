@@ -57,7 +57,7 @@
 			
 			<h3 class='mt-3 '>Меню</h3>
 			<div class="list-group mt-3">
-
+<a href="%name_site%" class="list-group-item list-group-item-action">Главная страница</a>
 ^start_repeat_menu^
 %name% %link%
 <a href="%name_site%category/%link%" class="list-group-item list-group-item-action">%name%</a>
@@ -66,6 +66,8 @@
 			%startadmin%
 			  <a href="%name_site%redaction_menu" class="list-group-item list-group-item-action">Редактировать меню</a>
 			  <a href="%name_site%add_article" class="list-group-item list-group-item-action">Добавить статью</a>
+			  <a href="%name_site%add_article" class="list-group-item list-group-item-action">Комментарии</a>
+			  <a href="%name_site%maps_article" class="list-group-item list-group-item-action">Карта статей</a>
 			%endadmin%
 
 			%startnoauth%
