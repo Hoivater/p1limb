@@ -12,7 +12,7 @@
 		protected $files;
 		protected $names; #содержит ИМЯ из формы => ИМЯ для записи в таблицу, которое получило при сохранениеи
 		protected $ini;
-		protected $ex;
+		public $ex;
 		protected $size;
 
 		public function __construct($files)

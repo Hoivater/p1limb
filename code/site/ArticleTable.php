@@ -3,6 +3,7 @@
 	use limb\app\base as Base;#для работы с валидатором и бд
 	use limb\app\base\control as Control;
 	use limb\app\worker as Worker;#для шаблонизатора
+	use limb\app\form as Form;
 	/**
 	 * работа с данными таблицы
 	 *
@@ -37,8 +38,33 @@
 		{
 			$name77656756 = '3289t_article';
 			$table_key757658 = "`id`, `name`, `category`, `image`, `description`, `link`, `text`, `commentary`, `date_creation`";
+			
+			#удаляем также и комментарии с этой статьей
+			$si = new Base\SearchInq("3289t_article");
+			$si -> selectQ();
+			$si -> whereQ("link", $link, "=");
+			$result = $si -> resQ(); 
+			if(isset($result[0]["id"]))
+			{
+				$name776567562 = '3289t_comments';
+				$table_key7576582 = "`id`, `id_article`, `level`, `author`, `email`, `comment`, `date`";
+				$ri2 = new Base\RedactionInq($name776567562, $table_key7576582);
+				$id_article = $result[0]["id"];
+				$si2 = new Base\SearchInq("3289t_comments");
+				$si2 -> selectQ();
+				$si2 -> whereQ("id_article", $id_article, "=");
+				$comment_for_delete = $si2 -> resQ();
+				for($i = 0; $i < count($comment_for_delete); $i++)
+				{
+					$ri2 -> delete("id", $comment_for_delete);
+				}
+			}
+
+
 			$ri = new Base\RedactionInq($name77656756, $table_key757658);
 			$ri -> delete("link", $link);
+
+
 
 		}
 		#метод добавляющий данные в таблицу, value - строка следующего вида
@@ -92,7 +118,7 @@
 			#UNIQUE LINK
 
 
-			$text = $data["text"];
+			$text = self::ReText($data["text"]);
 			$commentary = 0;
 			$date_creation = time();
 
@@ -102,6 +128,66 @@
 			$result = $ri -> insert($value);
 			return $result;
 		}
+
+		protected static function ReText($text)
+		{
+			$text = htmlspecialchars_decode($text);
+			#ищем все выражения: [code][/code] и внутри них htmlspecialch...
+			// codes:
+			// echo (int)str_contains($text, "[code]"); 
+			if(str_contains($text, "[code]"))
+			{
+				$start = "[code]";
+				$end = "[/code]";
+
+				$html_for_repeat = self::textInternal([$start, $end], $text);#получаем html для повтора
+				$html = self::tmpReplace("&&LIMB&&", $text, [$start, $end]);#временная замена повторяющегося участка
+
+				$result_f = $html_for_repeat[1];
+				$text = Control\Necessary::standartReplace("&&LIMB&&", htmlspecialchars($result_f, ENT_QUOTES), $text);
+			}
+			// if(str_contains($text, "[code]") === true) goto codes;
+			return $text;
+		}
+
+		public static function redArticle($data)
+		{
+			$table_key757658 = "`id`, `name`, `category`, `image`, `description`, `link`, `text`, `commentary`, `date_creation`";
+			$ri = new  Base\RedactionInq("3289t_article", $table_key757658);
+			$text = self::ReText($data["text"]);
+			$ri -> update("name", $data["name"], "link", $data["link"]);
+			$ri -> update("description", $data["description"], "link", $data["link"]);
+			$ri -> update("category", $data["category"], "link", $data["link"]);
+			$ri -> update("text", $text, "link", $data["link"]);
+		}
+		#возвращает текст внутри двух элементов массива
+		private static function textInternal($arr, $html)
+		{
+			$num_start = stripos($html, $arr[0]);
+			$num_end = stripos($html, $arr[1]) + strlen($arr[0]);
+			// echo $num_start." ".$num_end;
+			$res = substr($html, $num_start, $num_end-$num_start);
+			$res_arr = explode("\n", $res);
+			$template = $res_arr[1];
+			$template_arr = explode(" ", $template);
+			
+			$html_res = str_replace($arr, ["", ""], implode("\n", $res_arr));
+			$res_temp = [];
+			for($i = 0; $i < count($template_arr); $i++)
+			{
+				$res_temp[] = trim($template_arr[$i]);
+			}
+			return [$res_temp, $html_res];
+		}
+		#заменяем повторяющийся текст на значок шаблонизатора &&LIMB&&
+		private static function tmpReplace($limb, $html, $arr)
+		{
+			$num_start = stripos($html, $arr[0]);
+			$num_end = stripos($html, $arr[1]) + strlen($arr[0]);
+			$s = substr($html, 0, $num_start).$limb.substr($html, $num_end);
+			return $s;
+		}
+
 
 
 		protected function Limb($auth, $link)#сборщик страницы
@@ -173,9 +259,8 @@
 					}
 				}
 				$result[0]["date_creation"] = Control\Necessary::ConvertDate($result[0]["date_creation"]);
-
-
-
+				$result[0]["csrf"] = Form\FormBase::csrf();
+				$result[0]["user"] = Base\Control\Control::NameUser();
 				#######################COMMENTARY##############################
 				##Простой вид
 

@@ -36,7 +36,7 @@ use limb\app\base as Base;
 			{
 				foreach ($data as $key => $value) {
 					if($key != "code")
-						$this -> data[$key] = htmlspecialchars($value);
+						$this -> data[$key] = htmlspecialchars($value, ENT_QUOTES);
 					else
 						$this -> data[$key] = $value;
 				}
@@ -79,7 +79,13 @@ use limb\app\base as Base;
 		public function redArticle()
 		{
 
-			$res = \limb\code\site\aNewArticleTable::redArticle($this -> data);
+			$res = \limb\code\site\ArticleTable::redArticle($this -> data);
+			return $res;
+		}
+		public function addCommentary()
+		{
+
+			$res = \limb\code\site\CommentsTable::addCommentary($this -> data);
 			return $res;
 		}
 		public function ImportBD()

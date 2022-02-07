@@ -1,6 +1,6 @@
 header, footer{
-	background:#0D6EFD;
-	color: white;
+	background:#BEE6C8;
+	color: #2F362C;
 }
 .logo{
 	width: 50px;
@@ -10,7 +10,7 @@ a: hover{
 	color: green;
 }
 a{
-	color: white;
+	color: #2F362C;
 	text-decoration: none;
 }
 .img_article{
@@ -36,7 +36,7 @@ p{
 }
 .name_author{
 	/*padding: 5px;*/
-	color: black;
+	color: #2F362C;
 }
 .clean{
 	clear: both;
@@ -48,6 +48,9 @@ p{
 	margin-left: 40px;
 }
 .address a{
-	color: black;
+	color: #2F362C;
 	font-style: italic;
+}
+.cardLink{
+	color: #2F362C;
 }

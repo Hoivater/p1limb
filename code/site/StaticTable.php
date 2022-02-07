@@ -28,7 +28,7 @@ use limb\app\base as Base; #для работы с базой данный
 			
 			$si2 = new Base\SearchInq("3289t_menu");
 			$si2 -> selectQ();
-			$si2 -> orderDescQ();
+			$si2 -> orderAscQ();
 			$menu = $si2 -> resQ(); //массив со всеми записями
 				#получаем массив данных
 
@@ -37,7 +37,7 @@ use limb\app\base as Base; #для работы с базой данный
 
 			$page_ini = parse_ini_file(__DIR__."/../../view/page.ini");
 
-			$replace_main_tmplt = ["header_text" => "LIMB БЛОГ", "name_user" => $name];
+			$replace_main_tmplt = ["header_text" => "LIMB", "name_user" => $name];
 
 			$template = [
 				"norepeat" => ["%header_text%", "%name_user%"],

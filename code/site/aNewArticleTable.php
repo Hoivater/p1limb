@@ -46,17 +46,6 @@
 			}
 			#code...
 		}
-		public static function redArticle($data)
-		{
-			print_r($data);
-			$table_key757658 = "`id`, `name`, `category`, `image`, `description`, `link`, `text`, `commentary`, `date_creation`";
-			$ri = new  Base\RedactionInq("3289t_article", $table_key757658);
-
-			$ri -> update("name", $data["name"], "link", $data["link"]);
-			$ri -> update("description", $data["description"], "link", $data["link"]);
-			$ri -> update("category", $data["category"], "link", $data["link"]);
-			$ri -> update("text", $data["text"], "link", $data["link"]);
-		}
 		protected function Limb($auth)#сборщик страницы
 		{
 			$limb = new Worker\Limb();

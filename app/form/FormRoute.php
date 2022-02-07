@@ -95,6 +95,11 @@ require "../../autoload.php";
 				$this -> result = $this -> redArticle();
 
 			}
+			elseif($name_form == "add_commentary")
+			{
+				$this -> result = $this -> addCommentary();
+			}
+
 		}
 
 

@@ -3,3 +3,11 @@ Options +FollowSymlinks
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^(.*) /?%{QUERY_STRING}
+	
+#Запрещаем просмотр содержимого папки
+Options All -Indexes
+
+ErrorDocument 401 /view/error/401.php
+ErrorDocument 403 /view/error/403.php
+ErrorDocument 404 /view/error/404.php
+ErrorDocument 500 /view/error/500.php

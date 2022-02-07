@@ -88,9 +88,17 @@ class Route
 				{
 					$html = new LimbSite\aNewArticlePage();
 				}
+				elseif($route_arr[0] == "commentary" && $this -> auth == "admin")
+				{
+					$html = new LimbSite\CommentsPage();
+				}
 				elseif($route_arr[0] == "redaction_menu" && $this -> auth == "admin")
 				{
 					$html = new LimbSite\aRedactionMenuPage();
+				}
+				elseif($route_arr[0] == "galery" && $this -> auth == "admin")
+				{
+					$html = new LimbSite\aGaleryPage();
 				}
 				elseif($route_arr[0] == "maps_article" && $this -> auth == "admin")
 				{
@@ -109,6 +117,24 @@ class Route
 					if(isset($route_arr[1]))
 					{
 						LimbSite\ArticleTable::delete_article($route_arr[1]);
+						header('Location: '.$_SERVER['HTTP_REFERER']);
+						exit();
+					}
+				}
+				elseif($route_arr[0] == "delete_comment" && $this -> auth == "admin")
+				{
+					if(isset($route_arr[1]))
+					{
+						LimbSite\CommentsTable::delete_commentary($route_arr[1]);
+						header('Location: '.$_SERVER['HTTP_REFERER']);
+						exit();
+					}
+				}
+				elseif($route_arr[0] == "delete_image" && $this -> auth == "admin")
+				{
+					if(isset($route_arr[1]))
+					{
+						unlink(__DIR__."/../../resourse/visible/content/".$route_arr[1]);
 						header('Location: '.$_SERVER['HTTP_REFERER']);
 						exit();
 					}

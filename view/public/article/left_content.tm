@@ -1,5 +1,5 @@
 #norepeat
-%date_creation% %name% %text% %linkback% %linkprev% %name_article_back% %name_article_prev% `
+%date_creation% %name% %text% %linkback% %linkprev% %name_article_back% %name_article_prev% %csrf% %id% %user% [code] [/code] `
 <div class="card mt-3">
   <div class="card-header">
     %date_creation%
@@ -16,10 +16,14 @@
 
     %startall%
   	<div class="form_commentary p-3">
-  		<form name = "form_comm" method = "post" action = '%name_site%app/form/FormPublicRoute.php'>
-  			<div class="input-group">
-			  <textarea class="form-control" aria-label="With textarea"></textarea>
-			  <span class="input-group-text"><button type = "submit" class="btn btn-light">Добавить</button></span>
+  		<form name = "form_comm" method = "post" action = '%name_site%app/form/FormRoute.php'>
+        <input type="text" value = "%id%" name = "id" style='display:none;'>
+  			<input type="text" value = "%user%" name = "user" style='display:none;'>
+        <div class="input-group">
+          %csrf%
+			  <textarea class="form-control" aria-label="With textarea" name  = "comment"></textarea>
+			  <span class="input-group-text"><button type = "submit" class="btn btn-light" name="nameForm" value = 'add_commentary'>Добавить</button></span>
+
 			</div>
   		</form>
   	</div>
@@ -30,7 +34,7 @@
     %endnoauth%
 
 ^start_repeat_OneComment^
-%author% %date% %comment%
+%author% %date% %comment% 
 <div class='one_commentary'>
   <div class="container-fluid">
     <div class="row">
@@ -39,7 +43,7 @@
         <p class="time">%date%</p>
       </div>
       <div class="col-10">
-        <p class="text_commenatary p-3 pt-0">
+        <p class="text_commenatary p-3 pt-0 ">
           %comment%
         </p>
 

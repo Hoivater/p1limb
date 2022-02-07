@@ -34,6 +34,7 @@
   <textarea class="form-control" placeholder="Leave a comment here" name = "text" id="floatingTextarea2" style="height: 250px"></textarea>
   <label for="floatingTextarea2">Текст статьи</label>
 </div>
-
+<p> pre code data-language=" " [ code ] - для кода</p>
+<p> p class = warn  - выделение, важно!</p>
 <button type="submit" class="btn btn-primary mt-3" name = "nameForm" value = "add_article">Добавить</button>
 </form>

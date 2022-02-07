@@ -23,9 +23,9 @@
      inkscape:pagecheckerboard="0"
      inkscape:document-units="mm"
      showgrid="false"
-     inkscape:zoom="2.1719924"
-     inkscape:cx="214.08915"
-     inkscape:cy="83.56383"
+     inkscape:zoom="0.970129"
+     inkscape:cx="106.17145"
+     inkscape:cy="95.348144"
      inkscape:window-width="1920"
      inkscape:window-height="1051"
      inkscape:window-x="-9"
@@ -61,25 +61,19 @@
        lpeversion="1" />
   </defs>
   <g
+     inkscape:groupmode="layer"
+     id="layer2"
+     inkscape:label="Слой 2" />
+  <g
      inkscape:label="Слой 1"
      inkscape:groupmode="layer"
      id="layer1"
      transform="translate(-31.365359,-121.28491)">
-    <circle
-       style="fill:#a7a2ff;stroke:none;stroke-width:0.173538;stroke-linecap:round;stroke-linejoin:round"
+    <path
        id="path846-2"
-       cx="81.353447"
-       cy="147.85623"
-       r="24.913231"
-       transform="rotate(-1.1469788)" />
-    <ellipse
-       style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.158995;stroke-linecap:round;stroke-linejoin:round"
-       id="path950-8"
-       cx="81.181183"
-       cy="148.20078"
-       rx="19.920504"
-       ry="19.920502"
-       transform="rotate(-1.1469788)" />
+       style="fill:#a7a2ff;stroke:none;stroke-width:0.655892;stroke-linecap:round;stroke-linejoin:round"
+       d="M 198.17188 0.01953125 A 94.160243 94.160243 0 0 0 105.91406 96.044922 A 94.160243 94.160243 0 0 0 201.94141 188.30078 A 94.160243 94.160243 0 0 0 294.19727 92.275391 A 94.160243 94.160243 0 0 0 198.17188 0.01953125 z M 197.92383 20.201172 A 75.290085 75.290092 88.853021 0 1 274.70508 93.96875 A 75.290085 75.290092 88.853021 0 1 200.9375 170.75 A 75.290085 75.290092 88.853021 0 1 124.15625 96.982422 A 75.290085 75.290092 88.853021 0 1 197.92383 20.201172 z "
+       transform="matrix(0.26458333,0,0,0.26458333,31.365359,121.28491)" />
     <path
        style="fill:none;stroke:#000000;stroke-width:0.165;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="m 86.79754,146.90664 c 1.568547,2.68089 3.045859,5.41516 4.42852,8.19648 1.354075,2.72382 2.617373,5.49277 3.78709,8.3007"

@@ -18,6 +18,7 @@
 
 			$this -> html = $staticPage -> getStaticPage();
 			$this -> Page();
+
 		}
 		#метод для сборки страницы
 		#вся работа с базой данных идет в родительском классе
@@ -27,7 +28,8 @@
 		{
 			session_start();
 
-
+			$auth = Base\Control\Control::IsRules();
+			$this -> page = $this -> Limb($auth);
 
 
 		}
