@@ -38,6 +38,7 @@
   <li><a href="%name_site%galery" class="nav-link px-2 link-dark">Галерея</a></li>
 </ul>
 %endadmin%
+<div class="clean"></div>
 </header>
 <body>
 <div  class='container'>

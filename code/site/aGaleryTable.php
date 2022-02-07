@@ -27,6 +27,9 @@
 			$limb = new Worker\Limb();
 			$galery = [];
 			$dir = scandir(__DIR__."/../../resourse/visible/content");
+			if(isset($dir[0])){
+
+
 			unset($dir[0]);
 			unset($dir[1]);
 			$dir = array_values($dir);
@@ -41,7 +44,7 @@
 				"internal" => [["name" => "left_content", "folder" => "admin_galery"]]
 			];
 			$data = [
-				"norepeat" => ["title" => "Добавить статью", "description" => "", "module_pagination" => "", "name_category" => "", "address" => "", "smenu" => ""],
+				"norepeat" => ["title" => "Загрузить изображение", "description" => "", "module_pagination" => "", "name_category" => "", "address" => "", "smenu" => ""],
 				"repeat_tm" => [$galery],
 				"internal" => [[["csrf" => $this -> csrf]]]
 			];
@@ -50,6 +53,7 @@
 			$render = $limb -> TemplateMaster($template, $data, $auth, $this -> html);
 
 			return $render;
+			}
 		}
 
 	}

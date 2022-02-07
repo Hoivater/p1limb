@@ -31,7 +31,7 @@
 </div>
 
 <div class="form-floating mt-3">
-  <textarea class="form-control" placeholder="Leave a comment here" name = "text" id="floatingTextarea2" style="height: 250px"></textarea>
+  <textarea class="form-control" placeholder="Leave a comment here" name = "text" id="floatingTextarea2" style="height: 600px"></textarea>
   <label for="floatingTextarea2">Текст статьи</label>
 </div>
 <p> pre code data-language=" " [ code ] - для кода</p>

@@ -28,7 +28,7 @@
 </div>
 
 <div class="form-floating mt-3">
-  <textarea class="form-control" placeholder="Leave a comment here" name = "text" id="floatingTextarea2" style="height: 250px">%text%</textarea>
+  <textarea class="form-control" placeholder="Leave a comment here" name = "text" id="floatingTextarea2" style="height: 600px">%text%</textarea>
   <label for="floatingTextarea2">Текст статьи</label>
 </div>
 

@@ -54,3 +54,13 @@ p{
 .cardLink{
 	color: #2F362C;
 }
+.warn{
+	padding: 10px;
+	padding-left: 80px;
+	font-size: 140%;
+	background: #BEE6C8;
+	border-radius: 10px;
+	background-image: url("/resourse/visible/warn.svg");
+	background-repeat: no-repeat;
+	background-size: auto 100%;
+}

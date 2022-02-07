@@ -239,7 +239,7 @@
 								$result[0]["linkprev"] = $category_article[$i]["link"]."/#";
 								$result[0]["name_article_prev"] = "Закончились статьи";
 							}
-							if($i > 1 && $i < count($category_article))
+							if($i >= 1 && $i < count($category_article))
 							{
 								$result[0]["name_article_back"] = $category_article[$i-1]["name"];				
 								$result[0]["linkback"] = $category_article[$i-1]["link"];
