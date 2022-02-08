@@ -11,3 +11,10 @@ ErrorDocument 401 /view/error/401.php
 ErrorDocument 403 /view/error/403.php
 ErrorDocument 404 /view/error/404.php
 ErrorDocument 500 /view/error/500.php
+
+
+<FilesMatch "(.(sql|ini|log|inc)|~)$">
+Order allow,deny
+Deny from all
+Satisfy All
+</FilesMatch>

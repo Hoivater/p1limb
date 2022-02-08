@@ -11,5 +11,85 @@
 <p>
 	Тонкая настройка заключается прежде всего в настройке методов из класса Generate.
 </p>
-<p>На данный момент предоставлены следующие функции:</p>
+<p>Использование:</p>
 
+<pre><code data-language = 'php'>[code]
+use app\base\control as Control;
+$n = Control\Generate::this_idgenerate();
+[/code]</code></pre>
+
+
+<p>На данный момент предоставлены следующие методы (все статические):</p>
+
+<table class="table table-hover">
+      <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Метод</th>
+      <th scope="col">Описание</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">1</th>
+      <td>this_idgenerate()</td>
+      <td>Генерирует ID. Вызывается по умолчанию, возвращает NULL</td>
+    </tr>
+    <tr>
+      <th scope="row">2</th>
+      <td>this_dategenerate()</td>
+      <td>Вызывается по умолчанию, <b>генерирует дату</b> в формате UNIX TIME в промежутке от текущей даты до минус года</td>
+    </tr>
+    <tr>
+      <th scope="row">3</th>
+      <td>intgenerate($num = 0)</td>
+      <td>Генерирует число int, либо с произвольным количеством десятков, либо с заданным $num</td>
+    </tr>
+    <tr>
+      <th scope="row">4</th>
+      <td>varchargenerate($num)</td>
+      <td>Генерирует строку на кириллице, с заданным количеством символов</td>
+    </tr>
+    <tr>
+      <th scope="row">5</th>
+      <td>textgenerate($num = "no")</td>
+      <td>Генерирует string на кириллице, заданной длинной либо произвольной от 200 до 900 символов</td>
+    </tr>
+    <tr>
+      <th scope="row">6</th>
+      <td>floatgenerate()</td>
+      <td>Генерирует число float, формата: x.xxxx</td>
+    </tr>
+    <tr>
+      <th scope="row">7</th>
+      <td>booleangenerate()</td>
+      <td>Генерирует boolean, условно это int [0, 1]</td>
+    </tr>
+    <tr>
+      <th scope="row">8</th>
+      <td>imagegenerate()</td>
+      <td>Генерирует строку с названием действительного изображения: "limb.jpg"</td>
+    </tr>
+    <tr>
+      <th scope="row">9</th>
+      <td>linkgenerate($name)</td>
+      <td>Генерирует число ссылку либо иное. Переводит выражение из кириллицы на латиницу</td>
+    </tr>
+    <tr>
+      <th scope="row">10</th>
+      <td>passgenerate()</td>
+      <td>Генерирует пароль из пяти 1, 2, 3, 4. И возвращает их md5("11111")</td>
+    </tr>
+    <tr>
+      <th scope="row">11</th>
+      <td>codegenerate($num)</td>
+      <td>Генерирует код длинной в $num, в генерации также учавствуют следующие символы: !@%^&*</td>
+    </tr>
+    <tr>
+      <th scope="row">12</th>
+      <td>nameLatinGenerate($num)</td>
+      <td>Генерирует код длинной в $num, в генерации НЕ учавствуют следующие символы: !@%^&*, только большие и маленькие латинские буквы.</td>
+    </tr>
+  </tbody>
+
+  </table>
