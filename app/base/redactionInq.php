@@ -42,7 +42,6 @@ namespace limb\app\base;
 			$table = $this -> db -> query($query);
 			return $table;
 		}
-		//по принципу LARAVEL?? ГДЕ КАЖДАЯ ФУНКЦИЯ ДОБАВЛЯЕТ КУСОЧЕК КОДА В КОД
 
 	}
 ?>

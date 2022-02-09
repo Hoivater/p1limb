@@ -20,7 +20,7 @@
     <script src="https://kit.fontawesome.com/de9f65bcf0.js" crossorigin="anonymous"></script>
 
     <link rel="shortcut icon" href="/favicon.svg" type="image/x-icon">
-	<title>LIMB/403</title>
+	<title>LIMB/401</title>
 
 </head>
 <body>
@@ -84,7 +84,7 @@
 
 
 		<div class = "page" id = "one">
-			<div class="names"><h1 class="text-start pt-3 pb-3"><span>LIMB / ERROR 403 (нет доступа)</span></h1></div>
+			<div class="names"><h1 class="text-start pt-3 pb-3"><span>LIMB / ERROR 401</span></h1></div>
 			<div class="description">
 			
 			</div>

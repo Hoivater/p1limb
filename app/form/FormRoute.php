@@ -5,6 +5,7 @@ namespace limb\app\form;
 
 use limb\app\worker as Worker;
 use limb\app\base\control as Control;
+use limb\app\modules\auth as Auth;
 
 require "../../autoload.php";
 
@@ -22,6 +23,7 @@ require "../../autoload.php";
 			if($this -> controlHtml == 2){
 				if(isset($data['code']) && isset($_SESSION['csrf'])){
 					$csrf = $_SESSION['csrf'];
+					unset($_SESSION['csrf']);
 					$csrf_site = $this -> data['code'];
 					if($csrf == $csrf_site)
 					{
@@ -99,6 +101,23 @@ require "../../autoload.php";
 			{
 				$this -> result = $this -> addCommentary();
 			}
+
+			elseif($name_form == 'reg')
+			{
+				$reg = new Auth\AuthPage(false);
+				$this -> result = $reg -> newUser($this -> data);
+			}
+			elseif($name_form == 'auth')
+			{
+				$reg = new Auth\AuthPage(false);
+				$this -> result = $reg -> AuthUser($this -> data);
+			}
+			elseif($name_form == 'newpassword')
+			{
+				$reg = new Auth\AuthPage(false);
+				$this -> result = $reg -> NewPasswordOnPost($this -> data);
+			}
+
 
 		}
 

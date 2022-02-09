@@ -24,8 +24,8 @@
 			<div class="row">
 					<div class="table_auth">
 						<h3 class="text-center mb-3">Восстановление пароля LIMB</h3>
-						<form name = "auth" action = "/app/modules/auth/Auth.php" method = "post">
-
+						<form name = "auth" action = "/app/form/FormRoute.php" method = "post">
+							%csrf%
 							<label for="email">Введите ваш email, указанный при регистрации:</label>
 							<input type = "email" name = " email" id= "email" class="form-control mt-1" />
 							<label for="pass1">Придумайте новый пароль:</label>

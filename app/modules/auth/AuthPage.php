@@ -1,6 +1,8 @@
 <?php
 namespace limb\app\modules\auth;
 use limb\app\base\control as Cont;
+use limb\app\form as Form;
+
 
 /**
  *
@@ -79,6 +81,7 @@ class AuthPage extends AuthTable
 	
 	public function Registration()
 	{
+
 		if($this -> email == false)
 		{
 			if(isset($_SESSION["message"])){
@@ -87,7 +90,8 @@ class AuthPage extends AuthTable
 			}
 			else
 				$message = "";
-			$result = Cont\Necessary::standartReplace(["%message%"], $message, $this -> RegistrationPage());
+			$csrf = Form\FormBase::csrf();
+			$result = Cont\Necessary::standartReplace(["%message%", "%csrf%"], [$message, $csrf], $this -> RegistrationPage());
 			$this -> page = $result;
 		}
 	}
@@ -101,7 +105,8 @@ class AuthPage extends AuthTable
 		}
 		else
 			$message = "";
-		$result = Cont\Necessary::standartReplace(["%message%"], $message, $this -> AuthPage());
+		$csrf = Form\FormBase::csrf();
+		$result = Cont\Necessary::standartReplace(["%message%", "%csrf%"], [$message, $csrf], $this -> AuthPage());
 		$this -> page = $result;
 
 	}
@@ -113,7 +118,8 @@ class AuthPage extends AuthTable
 		}
 		else
 			$message = "";
-		$result = Cont\Necessary::standartReplace(["%message%"], $message, $this -> NewPasswordPage());
+		$csrf = Form\FormBase::csrf();
+		$result = Cont\Necessary::standartReplace(["%message%", "%csrf%"], [$message, $csrf], $this -> NewPasswordPage());
 		$this -> page = $result;
 	}
 }

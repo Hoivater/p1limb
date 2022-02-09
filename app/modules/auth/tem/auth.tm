@@ -25,7 +25,8 @@
 			<div class="row">
 					<div class="table_auth">
 						<h3 class="text-center mt-1">Авторизация LIMB</h3>
-						<form name = "auth" action = "/app/modules/auth/Auth.php" method = "post">
+						<form name = "auth" action = "/app/form/FormRoute.php" method = "post">
+							%csrf%
 							<label for="email">Ваш Email:</label>
 							<input type = "email" id = "email" name = "email" class="form-control mt-1" />
 							<label for="password">Введите пароль:</label>

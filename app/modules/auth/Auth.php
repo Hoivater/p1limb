@@ -1,7 +1,7 @@
 <?php
 namespace limb\app\modules\auth;
 require "../../../autoload.php";
-
+#не обязательная
 if($_POST['nameForm'] == 'reg')
 {
 	$reg = new AuthPage(false);
